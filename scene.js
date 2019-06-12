@@ -77,8 +77,8 @@
     axisOriginHelper = new OriginAxisHelper(1200);
     axisOriginHelper.visible = true;
 
-    projector = new THREE.Projector();
     clock = new THREE.Clock();
+    projector = new THREE.Projector();
 
     renderer = new THREE.WebGLRenderer({
         antialias: true,
