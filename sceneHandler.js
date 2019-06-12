@@ -72,15 +72,16 @@
                 return canvas.toDataURL("image/jpeg");
 
             }).then(function( snapshotdata ){
-            /*
+
             //  TODO: sloothes watermark.
+            /*
                 if ( !isVip ) {
                     var watermarkUrl = "https://i.imgur.com/MrEaeSc.png";
                     return watermarkedSnapshot( snapshotdata, watermarkUrl );
-                } else {
-                    return snapshotdata
                 }
             */
+                return snapshotdata;
+
             }).then(function( snapshotdata ){
 
                 saveSnapshotDialog( snapshotdata );
@@ -132,15 +133,16 @@
                     return canvas.toDataURL("image/jpeg");
 
                 }).then(function( snapshotdata ){
-                /*
+
                 //  TODO: sloothes watermark.
+                /*
                     if ( !isVip ) {
                         var watermarkUrl = "https://i.imgur.com/MrEaeSc.png";
                         return watermarkedSnapshot( snapshotdata, watermarkUrl );
-                    } else {
-                        return snapshotdata
                     }
                 */
+                    return snapshotdata;
+
                 }).then(function( snapshotdata ){
                     saveSnapshotDialog( snapshotdata );
                 });
