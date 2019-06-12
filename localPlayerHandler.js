@@ -23,10 +23,11 @@
                 debugMode && console.log(`outfit removed.`);
 
                 localPlayer.outfit.add(
-                    {"body": window[gender].body},
-                    {"eyes": window[gender].eyes},
-                    {"hairs":window[gender].hairs}
-
+                    {"body":    window[gender].body},
+                    {"eyes":    window[gender].eyes},
+                    {"hairs":   window[gender].hairs},
+                    {"costume": window[gender].costume},
+                    {"shoes":   window[gender].shoes}
                 );
                 debugMode && console.log(`body added.`);
 
