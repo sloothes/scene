@@ -118,9 +118,19 @@
 
     })().then(function(){
 
-    //  Start up.
-        localPlayerHandler( "/turn/back" );
-        localPlayerHandler( store("Sex") || "/gender/male" );
+    //  on start up.
+        localPlayer.outfit.setGender("female");
+
+        localPlayer.outfit.add(
+            {"body": female.body},
+            {"eyes": female.eyes},
+            {"shoes": female.shoes},
+            {"hairs": female.hairs},
+            {"stockings": female.stockings},
+            {"underwears":female.underwears}
+        );
+
+        localPlayerHandler("/control/back");
 
     }).catch(function(err){
         console.error(err);
