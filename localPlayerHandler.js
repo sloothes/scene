@@ -26,7 +26,7 @@
                     {"body":    window[gender].body},
                     {"eyes":    window[gender].eyes},
                     {"hairs":   window[gender].hairs},
-                    {"costume": window[gender].costume},
+                    {"underwears": window[gender].underwears},
                     {"shoes":   window[gender].shoes}
                 );
                 debugMode && console.log(`body added.`);
