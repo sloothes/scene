@@ -116,22 +116,4 @@
             console.error(err);
         });
 
-    })().then(function(){
-
-    //  on start up.
-        localPlayer.outfit.setGender("female");
-
-        localPlayer.outfit.add(
-            {"body": female.body},
-            {"eyes": female.eyes},
-            {"shoes": female.shoes},
-            {"hairs": female.hairs},
-            {"stockings": female.stockings},
-            {"underwears":female.underwears}
-        );
-
-        localPlayerHandler("/control/back");
-
-    }).catch(function(err){
-        console.error(err);
-    });
+    })();
