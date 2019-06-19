@@ -116,4 +116,9 @@
             console.error(err);
         });
 
+        localPlayerHandler(
+            "/control/back",
+            "/gender/female"
+        );
+
     })();
