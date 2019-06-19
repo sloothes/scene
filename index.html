@@ -132,10 +132,15 @@
 <script>
 
 //  on start up.
-    localPlayerHandler(
-        "/control/back",
-        "/gender/female"
-    );
+    $(window).on("load", function(){
+        debugMode && console.log("scene loaded.");
+
+        localPlayerHandler(
+            "/control/back",
+            "/gender/female"
+        );
+
+    });
 
 </script>
 
