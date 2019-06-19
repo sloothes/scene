@@ -87,7 +87,7 @@
 
 //  Renderer.
 
-	renderer.shadowMap.enabled = true;
+    renderer.shadowMap.enabled = true;
     renderer.setClearColor( scene.fog.color );
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( container.clientWidth, container.clientHeight );
