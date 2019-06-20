@@ -234,6 +234,6 @@ function localPlayerHandler(){
 
     }
 
-    return;
+    return localPlayer.outfit.toJSON();
 }
 
