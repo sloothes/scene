@@ -116,4 +116,15 @@
             console.error(err);
         });
 
+        debugMode && console.log({
+            "male":male,
+            "female":female,
+            "skeleton":skeleton
+        });
+
+        localPlayerHandler(
+            "/turn/back",
+            "/gender/female"
+        );
+        
     })();
