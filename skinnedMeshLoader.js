@@ -87,15 +87,6 @@
         female = await cacheSkinned("female");
         debugMode && console.log({"female": female});
 
-    //  StartUp.
-        await (async function(){
-            localPlayerHandler(
-                "/turn/back",
-                "/gender/female",
-                "/outfit/stockings"
-            );
-        })();
-
     //  SKELETON.
 
         await db.collection("skeleton")
@@ -147,6 +138,13 @@
 
                 skeleton = skinned;
                 debugMode && console.log({"skeleton": skeleton});
+
+            //  StartUp.
+                localPlayerHandler(
+                    "/turn/back",
+                    "/gender/female",
+                    "/outfit/stockings"
+                );
 
             });
 
