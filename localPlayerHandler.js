@@ -54,9 +54,16 @@ function localPlayerHandler(){
                     {"body":    window[gender].body},
                     {"eyes":    window[gender].eyes},
                     {"hairs":   window[gender].hairs},
-                    {"underwears": window[gender].underwears},
                     {"shoes":   window[gender].shoes}
+                    {"underwears": window[gender].underwears},
                 );
+
+                localPlayer.outfit.body.material.needsUpdate = true;
+                localPlayer.outfit.eyes.material.needsUpdate = true;
+                localPlayer.outfit.hairs.material.needsUpdate = true;
+                localPlayer.outfit.hairs.material.needsUpdate = true;
+                localPlayer.outfit.shoes.material.needsUpdate = true;
+                localPlayer.outfit.underwears.material.needsUpdate = true;
 
                 updatetoIdling();  //  important!
 
@@ -134,6 +141,7 @@ function localPlayerHandler(){
                     localPlayer.outfit.remove("hairs");
                 } else {
                     localPlayer.outfit.add({"hairs":window[gender].hairs});
+                    localPlayer.outfit.hairs.material.needsUpdate = true;
                     updatetoIdling();
                 }
             break;
@@ -145,6 +153,7 @@ function localPlayerHandler(){
                     localPlayer.outfit.remove("stockings");
                 } else {
                     localPlayer.outfit.add({"stockings":female.stockings});
+                    localPlayer.outfit.stockings.material.needsUpdate = true;
                     updatetoIdling();
                 }
             break;
@@ -155,9 +164,8 @@ function localPlayerHandler(){
                 if ( localPlayer.outfit.underwears ) {
                     localPlayer.outfit.remove("underwears");
                 } else {
-                    localPlayer.outfit.add(
-                        {"underwears":window[gender].underwears}
-                    );
+                    localPlayer.outfit.add({"underwears":window[gender].underwears});
+                    localPlayer.outfit.underwears.material.needsUpdate = true;
                     updatetoIdling(); 
                 }
             break;
@@ -167,6 +175,7 @@ function localPlayerHandler(){
 
                 localPlayer.outfit.remove("trousers");
                 localPlayer.outfit.add({"costume":female.dress});
+                localPlayer.outfit.costume.material.needsUpdate = true;
                 updatetoIdling();
 
             break;
@@ -176,6 +185,7 @@ function localPlayerHandler(){
                 if ( localPlayer.outfit.getGender("female") ) {
                     localPlayer.outfit.remove("trousers");
                     localPlayer.outfit.add( {"costume":female.costume} );
+                    localPlayer.outfit.costume.material.needsUpdate = true;
                     updatetoIdling();
                 }
 
@@ -185,6 +195,7 @@ function localPlayerHandler(){
                         localPlayer.outfit.remove("costume");
                     } else {
                         localPlayer.outfit.add( {"costume":male.costume} );
+                        localPlayer.outfit.costume.material.needsUpdate = true;
                         updatetoIdling();
                     }
                 }
@@ -198,6 +209,7 @@ function localPlayerHandler(){
                     localPlayer.outfit.remove("tshirt");
                 } else {
                     localPlayer.outfit.add({"tshirt":window[gender].tshirt});
+                    localPlayer.outfit.tshirt.material.needsUpdate = true;
                     updatetoIdling();
                 }
             break;
@@ -212,9 +224,8 @@ function localPlayerHandler(){
                 if ( localPlayer.outfit.trousers ) {
                     localPlayer.outfit.remove("trousers");
                 } else {
-                    localPlayer.outfit.add(
-                        {"trousers":window[gender].trousers}
-                    );
+                    localPlayer.outfit.add({"trousers":window[gender].trousers});
+                    localPlayer.outfit.trousers.material.needsUpdate = true;
                     updatetoIdling();
                 }
             break;
@@ -226,6 +237,7 @@ function localPlayerHandler(){
                     localPlayer.outfit.remove("shoes");
                 } else {
                     localPlayer.outfit.add({"shoes":window[gender].shoes});
+                    localPlayer.outfit.shoes.material.needsUpdate = true;
                     updatetoIdling();
                 }
             break;
