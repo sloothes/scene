@@ -54,8 +54,8 @@ function localPlayerHandler(){
                     {"body":    window[gender].body},
                     {"eyes":    window[gender].eyes},
                     {"hairs":   window[gender].hairs},
-                    {"shoes":   window[gender].shoes}
-                    {"underwears": window[gender].underwears},
+                    {"shoes":   window[gender].shoes},
+                    {"underwears": window[gender].underwears}
                 );
 
                 localPlayer.outfit.body.material.needsUpdate = true;
