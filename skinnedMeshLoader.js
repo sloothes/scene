@@ -1,59 +1,66 @@
 //  skinnedMeshLoader.js
 
-    var bones, 
-        skeleton;
+    async function cacheSkinned( name ){
 
-    var male = {
-        body:null,
-        eyes:null,
-        hairs:null,
-        underwears:null,
-        costume:null,
-        tshirt:null,
-        trousers:null,
-        shoes:null,
-    };
+        var cachedOutfits = {};
 
-    var female = {
-        body:null,
-        eyes:null,
-        hairs:null,
-        stockings:null,
-        underwears:null,
-        dress:null,
-        costume:null,
-        tshirt:null,
-        trousers:null,
-        shoes:null,
-    };
+        await db.collection( name ).find()
+        .forEach( async function(data){ 
+
+        //  Recover from json.
+            var object = {};
+            var key = data.name;
+
+            object.name      = data.name;
+            object.visible   = data.visible;
+            object.material  = data.material;
+            object.geometry  = data.geometry;  // url.
+
+        //  Scale.
+            var vector = new THREE.Vector3();
+            object.scale = vector.fromArray( data.scale );
+
+        //  Material.
+            var material = materialfromJSON( object.material );
+
+        //  Geometry.
+            w3.getHttpObject( object.geometry, function( json ){
+
+                var loader = new THREE.JSONLoader();
+                var geometry = loader.parse( json ).geometry;
+
+                geometry.sourceFile = object.geometry;  // important!
+
+                geometry.computeFaceNormals();
+                geometry.computeVertexNormals();
+                geometry.computeBoundingBox();
+                geometry.computeBoundingSphere();
+                geometry.name = json.name;
+
+                var skinned = new THREE.SkinnedMesh( geometry, material );
+
+                skinned.renderDepth = 1;
+                skinned.frustumCulled = false;
+                skinned.position.set( 0, 0, 0 );
+                skinned.rotation.set( 0, 0, 0 );
+                skinned.scale.copy( object.scale );
+            //  overwrite object.visible = true.
+                skinned.visible = object.visible; 
+                skinned.castShadow = true;
+
+                cachedOutfits[key] = skinned;
+
+            });
 
 
-    function loadSkinnedFrom(json){
+        }, function(err){
+            if (err) throw err;
+        }).catch(function(err){
+            console.error(err);
+        });
 
-        var loader = new THREE.JSONLoader();
-        var object = loader.parse( json );
-
-        var geometry = object.geometry;
-        geometry.sourceFile = json.sourceFile;
-        geometry.computeFaceNormals();
-        geometry.computeVertexNormals();
-        geometry.computeBoundingBox();
-        geometry.computeBoundingSphere();
-
-        var material = new THREE.MeshStandardMaterial({skinning:true});
-        var skinned =  new THREE.SkinnedMesh( geometry, material );
-
-        skinned.renderDepth = 1;
-        skinned.frustumCulled = false;
-        skinned.scale.set( 1, 1, 1 );
-        skinned.position.set( 0, 0, 0 );
-        skinned.rotation.set( 0, 0, 0 ); 
-
-        return skinned;
+        return cachedOutfits;
     }
-
-
-//  Cache skinned meshes (from indexedDB).
 
     (async function(){
 
@@ -63,68 +70,82 @@
         .findOne({_id:"bones"}, function(err, doc){
             if (err) throw err;
         }).then(function(json){
-            return json; // bones = json;
+            return json;
         }).catch(function(err){
             console.error(err);
         });
+
+        debugMode && console.log({"bones": bones});
+
 
     //  MALE.
+        male = await cacheSkinned("male");
+        debugMode && console.log({"male": male});
 
-        await db.collection("male").find()
-        .forEach( async function(doc){
-
-            var key = doc.name;
-            var json = {[key]:doc};
-            var object = await recoverfromJson(json, key);
-            male[key] = object[key];
-
-        }, function(err){
-            if (err) throw err;
-        }).catch(function(err){
-            console.error(err);
-        });
 
     //  FEMALE.
+        female = await cacheSkinned("female");
+        debugMode && console.log({"female": female});
 
-        await db.collection("female").find()
-        .forEach( async function(doc){
-
-            var key = doc.name;
-            var json = {[key]:doc};
-            var object = await recoverfromJson(json, key);
-
-            object[key].name = doc.name;
-            female[key] = object[key];
-
-        }, function(err){
-            if (err) throw err;
-        }).catch(function(err){
-            console.error(err);
-        });
 
     //  SKELETON.
 
-        skeleton = await db.collection("skeleton")
-        .findOne({_id:"skeleton"}, function(err, doc){
+        await db.collection("skeleton")
+        .findOne({_id:"body"}, function(err, doc){
             if (err) throw err;
-        }).then(async function(doc){
-            var key = doc.name;
-            var json = {[key]:doc};
-            var object = await recoverfromJson(json, key);
-            return object[key];
+        }).then(async function(data){
+
+            var object = {};
+            var key = data.name;
+
+            object.name      = data.name;
+            object.visible   = data.visible;
+            object.material  = data.material;
+            object.geometry  = data.geometry;  // url.
+
+        //  Scale.
+            var vector = new THREE.Vector3();
+            object.scale = vector.fromArray( data.scale );
+
+        //  Material.
+            var material = materialfromJSON( object.material );
+
+        //  Geometry.
+
+            w3.getHttpObject( object.geometry, function( json ){
+
+                var loader = new THREE.JSONLoader();
+                var geometry = loader.parse( json ).geometry;
+
+                geometry.sourceFile = object.geometry;  // important!
+
+                geometry.computeFaceNormals();
+                geometry.computeVertexNormals();
+                geometry.computeBoundingBox();
+                geometry.computeBoundingSphere();
+                geometry.name = json.name;
+
+                var skinned = new THREE.SkinnedMesh( geometry, material );
+
+                skinned.renderDepth = 1;
+                skinned.frustumCulled = false;
+                skinned.position.set( 0, 0, 0 );
+                skinned.rotation.set( 0, 0, 0 );
+                skinned.scale.copy( object.scale );
+            //  overwrite object.visible = true.
+                skinned.visible = object.visible; 
+                skinned.castShadow = true;
+                skinned.name = "skeleton";
+
+                skeleton = skinned;
+                debugMode && console.log({"skeleton": skeleton});
+
+            });
+
+
         }).catch(function(err){
             console.error(err);
         });
 
-        debugMode && console.log({
-            "male":male,
-            "female":female,
-            "skeleton":skeleton
-        });
-
-        localPlayerHandler(
-            "/turn/back",
-            "/gender/female"
-        );
-        
     })();
+
