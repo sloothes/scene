@@ -94,7 +94,7 @@
                 "/gender/female",
                 "/outfit/stockings"
             );
-        }){};
+        })();
 
     //  SKELETON.
 
