@@ -257,6 +257,23 @@
 
                 break;
 
+                case "/outfit/stockings":
+
+                    if ( !localPlayer.outfit.getGender("female") ) break;
+                        
+                    var gender = "female";
+
+                    if ( localPlayer.outfit.stockings ) {
+
+                        remove("stockings");
+
+                    } else {
+
+                        add("stockings");
+
+                    }
+
+                break;
 
 
 
