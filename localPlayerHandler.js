@@ -259,9 +259,9 @@
 
                 case "/outfit/stockings":
 
-                    if ( !localPlayer.outfit.getGender("female") ) break;
-                        
-                    var gender = "female";
+                    var gender = localPlayer.outfit.getGender();
+
+                    if ( gender != "female" ) break;
 
                     if ( localPlayer.outfit.stockings ) {
 
@@ -275,9 +275,79 @@
 
                 break;
 
+                case "/outfit/underwears":
+
+                    var gender = localPlayer.outfit.getGender();
+
+                    if ( localPlayer.outfit.underwears ) {
+
+                        remove("underwears");
+
+                    } else {
+
+                        add("underwears");
+
+                    }
+
+                break;
+
+                case "/outfit/dress":
+
+                    var gender = localPlayer.outfit.getGender();
+
+                    if ( gender != "female" ) break;
+
+                    localPlayer.outfit.remove("costume");
+                    localPlayer.outfit.remove("trousers");
+
+                    if ( localPlayer.outfit.dress ) {
+
+                        remove("dress");
+
+                    } else {
+
+                        add("dress");
+
+                    }
+
+                break;
+
+                case "/outfit/costume":
+
+                    var gender = localPlayer.outfit.getGender();
+
+                    if ( gender == "female" ) {
+                        localPlayer.outfit.remove("dress");
+                    }
 
 
+                    if ( localPlayer.outfit.costume ) {
 
+                        remove("costume");
+
+                    } else {
+
+                        add("costume");
+
+                    }
+
+                break;
+
+                case "/outfit/tshirt":
+
+                    var gender = localPlayer.outfit.getGender();
+
+                    if ( localPlayer.outfit.tshirt ) {
+
+                        remove("tshirt");
+
+                    } else {
+
+                        add("tshirt");
+
+                    }
+
+                break;
 
 
 
