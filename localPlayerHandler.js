@@ -3,6 +3,13 @@
     function localPlayerHandler(){
     //  Returns: localPlayer.outfit.toJSON();
 
+        function updatetoIdling(){
+            localPlayer.controller.isIdling  = true;
+            localPlayer.controller.isRunning = false;
+            localPlayer.controller.isWalking = false;
+            localPlayer.controller.movementSpeed = 0;
+        }
+
         function startIdling(){
             localPlayer.outfit.AnimationsHandler.stop();
             localPlayer.controller.isIdling  = true;
@@ -41,6 +48,12 @@
             });
 
             localPlayer.outfit.add({[name]:window[gender][name]});
+
+        //  updatetoIdling();
+            localPlayer.controller.isIdling  = true;
+            localPlayer.controller.isRunning = false;
+            localPlayer.controller.isWalking = false;
+            localPlayer.controller.movementSpeed = 0;
 
             localPlayer.outfit.direction.children.forEach(function(item){
                 item.material.needsUpdate = true;
