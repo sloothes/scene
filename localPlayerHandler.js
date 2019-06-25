@@ -2,7 +2,6 @@
 
     function localPlayerHandler(){
     //  Returns: localPlayer.outfit.toJSON();
-    //  debugMode && console.log( arguments );
 
         function startIdling(){
             localPlayer.outfit.AnimationsHandler.stop();
