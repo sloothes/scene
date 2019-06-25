@@ -1,157 +1,73 @@
-//  skinnedMeshLoader.js
-
-    async function cacheSkinned( name ){
-
-        var cachedOutfits = {};
-
-        await db.collection( name ).find()
-        .forEach( async function(data){ 
-
-        //  Recover from json.
-            var object = {};
-            var key = data.name;
-
-            object.name      = data.name;
-            object.visible   = data.visible;
-            object.material  = data.material;
-            object.geometry  = data.geometry;  // url.
-
-        //  Scale.
-            var vector = new THREE.Vector3();
-            object.scale = vector.fromArray( data.scale );
-
-        //  Material.
-            var material = materialfromJSON( object.material );
-
-        //  Geometry.
-            w3.getHttpObject( object.geometry, function( json ){
-
-                var loader = new THREE.JSONLoader();
-                var geometry = loader.parse( json ).geometry;
-
-                geometry.sourceFile = object.geometry;  // important!
-
-                geometry.computeFaceNormals();
-                geometry.computeVertexNormals();
-                geometry.computeBoundingBox();
-                geometry.computeBoundingSphere();
-                geometry.name = json.name;
-
-                var skinned = new THREE.SkinnedMesh( geometry, material );
-
-                skinned.renderDepth = 1;
-                skinned.frustumCulled = false;
-                skinned.position.set( 0, 0, 0 );
-                skinned.rotation.set( 0, 0, 0 );
-                skinned.scale.copy( object.scale );
-            //  overwrite object.visible = true.
-                skinned.visible = object.visible; 
-                skinned.castShadow = true;
-
-                cachedOutfits[key] = skinned;
-
-            });
-
-
-        }, function(err){
-            if (err) throw err;
-        }).catch(function(err){
-            console.error(err);
-        });
-
-        return cachedOutfits;
-    }
+//  skinnedMeshLoader.js (v6)
 
     (async function(){
 
-    //  BONES.
+    //  Disable outfit direction visible on startup.
+        localPlayer.outfit.direction.visible = false;
 
-        bones = await db.collection("skeleton")
-        .findOne({_id:"bones"}, function(err, doc){
-            if (err) throw err;
-        }).then(function(json){
-            return json;
-        }).catch(function(err){
+        male = {};
+
+        await db.collection("male")
+        .find().forEach(
+            function(doc){
+                male[doc._id] = doc;
+            }, 
+            function(err){
+                if (err) throw err;
+            }
+        ).catch(function(err){
             console.error(err);
+        }).then(function(){
+            return localPlayer.outfit.fromJSON(male);
+        }).then(function(outfit){
+            male = outfit;  // important!
+            debugMode && console.log({"male":male});
         });
 
-        debugMode && console.log({"bones": bones});
 
+        female = {};
 
-    //  MALE.
-        male = await cacheSkinned("male");
-        debugMode && console.log({"male": male});
+        await db.collection("female")
+        .find().forEach(
+            function(doc){
+                female[doc._id] = doc;
+            }, 
+            function(err){
+                if (err) throw err;
+            }
+        ).catch(function(err){
+            console.error(err);
+        }).then(function(){
+            return localPlayer.outfit.fromJSON(female);
+        }).then(function(outfit){
+            female = outfit;  // important!
+            debugMode && console.log({"female":female});
+        });
 
-
-    //  FEMALE.
-        female = await cacheSkinned("female");
-        debugMode && console.log({"female": female});
-
-    //  SKELETON.
+    //  skeleton.
 
         await db.collection("skeleton")
-        .findOne({_id:"body"}, function(err, doc){
+        .findOne({_id:"body"}, 
+        function(err){
             if (err) throw err;
-        }).then(async function(data){
-
-            var object = {};
-            var key = data.name;
-
-            object.name      = data.name;
-            object.visible   = data.visible;
-            object.material  = data.material;
-            object.geometry  = data.geometry;  // url.
-
-        //  Scale.
-            var vector = new THREE.Vector3();
-            object.scale = vector.fromArray( data.scale );
-
-        //  Material.
-            var material = materialfromJSON( object.material );
-
-        //  Geometry.
-
-            w3.getHttpObject( object.geometry, function( json ){
-
-                var loader = new THREE.JSONLoader();
-                var geometry = loader.parse( json ).geometry;
-
-                geometry.sourceFile = object.geometry;  // important!
-
-                geometry.computeFaceNormals();
-                geometry.computeVertexNormals();
-                geometry.computeBoundingBox();
-                geometry.computeBoundingSphere();
-                geometry.name = json.name;
-
-                var skinned = new THREE.SkinnedMesh( geometry, material );
-
-                skinned.renderDepth = 1;
-                skinned.frustumCulled = false;
-                skinned.position.set( 0, 0, 0 );
-                skinned.rotation.set( 0, 0, 0 );
-                skinned.scale.copy( object.scale );
-            //  overwrite object.visible = true.
-                skinned.visible = object.visible; 
-                skinned.castShadow = true;
-                skinned.name = "skeleton";
-
-                skeleton = skinned;
-                debugMode && console.log({"skeleton": skeleton});
-
-            //  StartUp.
-                localPlayerHandler(
-                    "/turn/back",
-                    "/gender/female",
-                    "/outfit/stockings"
-                );
-
-            });
-
-
+        }).then(function(doc){
+            return doc;
         }).catch(function(err){
             console.error(err);
+        }).then(function(doc){
+            return localPlayer.outfit.fromJSON({skeleton:doc});
+        }).then(function(outfit){
+            skeleton = outfit.skeleton;
+            debugMode && console.log({"skeleton":skeleton});
         });
 
-    })();
 
+    //  Startup.
+
+        localPlayerHandler("/turn/back");
+        localPlayerHandler("/gender/female");
+
+    //  Enable outfit direction visible.
+        localPlayer.outfit.direction.visible = true;
+
+    })();
