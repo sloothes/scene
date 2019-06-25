@@ -184,6 +184,8 @@
                             {"shoes":window[gender].shoes},
                         );
 
+                        updatetoIdling();
+
                         localPlayer.outfit.direction.children.forEach(function(item){
                             item.material.needsUpdate = true;
                         });
@@ -207,10 +209,11 @@
                                 }, 250);
                             });
 
-                            localPlayer.outfit.removeAll(); // important!
+                            localPlayer.outfit.removeAll();
 
-                        //  Skeleton uses ".outfit.skeleton" slot.
                             localPlayer.outfit.add( {"skeleton": skeleton} );
+
+                            updatetoIdling();
 
                             localPlayer.outfit.direction.children.forEach(function(item){
                                 item.material.needsUpdate = true;
@@ -240,6 +243,8 @@
                                 {"underwears":window[gender].underwears},
                                 {"shoes":window[gender].shoes},
                             );
+
+                            updatetoIdling();
 
                             localPlayer.outfit.direction.children.forEach(function(item){
                                 item.material.needsUpdate = true;
