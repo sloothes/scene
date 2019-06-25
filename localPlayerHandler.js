@@ -49,11 +49,7 @@
 
             localPlayer.outfit.add({[name]:window[gender][name]});
 
-        //  updatetoIdling();
-            localPlayer.controller.isIdling  = true;
-            localPlayer.controller.isRunning = false;
-            localPlayer.controller.isWalking = false;
-            localPlayer.controller.movementSpeed = 0;
+            startIdling();
 
             localPlayer.outfit.direction.children.forEach(function(item){
                 item.material.needsUpdate = true;
@@ -71,6 +67,8 @@
             });
 
             localPlayer.outfit.remove(name);
+
+            startIdling();
 
             localPlayer.outfit.direction.children.forEach(function(item){
                 item.material.needsUpdate = true;
