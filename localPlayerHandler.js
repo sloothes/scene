@@ -1,7 +1,30 @@
-//  localPlayerHandler.js (v3.1)
+
+//  localPlayerHandler.js (v3)
+//  Use signals.js with AW3D v0.3.5 and above.
+
+//  Also see material "depthFunc" property:
+
+    //  "material.depthFunc" defines which depth function the material uses 
+    //  to compare incoming pixels Z-depth against the current Z-depth buffer value. 
+    //  If the result of the comparison is true, the pixel will be drawn.
+
+    //  Default is LessEqualDepth [3].
+
+//  Depth mode constants for all possible values are:
+
+    //  [0] NeverDepth will never return true.
+    //  [1] AlwaysDepth will always return true.
+    //  [2] LessDepth will return true if the incoming pixel Z-depth is less than the current buffer Z-depth.
+    //  [3] LessEqualDepth is the default and will return true if the incoming pixel Z-depth is less than or equal to the current buffer Z-depth.
+    //  [4] Undefined: Propably never returns true ( equal to [0] NeverDepth ).
+    //  [5] GreaterEqualDepth will return true if the incoming pixel Z-depth is greater than or equal to the current buffer Z-depth.
+    //  [6] GreaterDepth will return true if the incoming pixel Z-depth is greater than the current buffer Z-depth.
+    //  [7] NotEqualDepth will return true if the incoming pixel Z-depth is not equal to the current buffer Z-depth.
+
 
     function localPlayerHandler(){
     //  Returns: localPlayer.outfit.toJSON();
+    //  debugMode && console.log( arguments );
 
         function startIdling(){
             localPlayer.outfit.AnimationsHandler.stop();
@@ -20,6 +43,7 @@
             localPlayer.controller.isWalking = true;
             localPlayer.controller.movementSpeed = 28;
             localPlayer.outfit.AnimationsHandler.play("walk");
+            // "startRunning" event dispatches from "MWtps.js"!
         }
 
         function startRunning(){
@@ -29,42 +53,8 @@
             localPlayer.controller.isWalking = false;
             localPlayer.controller.movementSpeed = 45;
             localPlayer.outfit.AnimationsHandler.play("run");
+            // "startRunning" event dispatches from "MWtps.js"!
         }
-
-        function add(name){
-
-            localPlayer.outfit.direction.visible = false;
-            $(localPlayer.outfit).one("change", function(){
-                setTimeout(function(){
-                    localPlayer.outfit.direction.visible = true;
-                }, 250);
-            });
-
-            localPlayer.outfit.add({[name]:window[gender][name]});
-
-            localPlayer.outfit.direction.children.forEach(function(item){
-                item.material.needsUpdate = true;
-            });
-
-        }
-
-        function remove(name){
-
-            localPlayer.outfit.direction.visible = false;
-            $(localPlayer.outfit).one("change", function(){
-                setTimeout(function(){
-                    localPlayer.outfit.direction.visible = true;
-                }, 250);
-            });
-
-            localPlayer.outfit.remove(name);
-
-            localPlayer.outfit.direction.children.forEach(function(item){
-                item.material.needsUpdate = true;
-            });
-
-        }
-
 
         for (var arg in arguments){
 
@@ -139,6 +129,7 @@
                     turnTo( frontAngle + Math.PI/2 )();
                 break;
 
+
             //  GENDER.
 
                 case "/gender/male":
@@ -160,8 +151,13 @@
                         });
 
                         localPlayer.outfit.removeAll();
+                    //  debugMode && console.log(`outfit removed.`);
 
                         localPlayer.outfit.setGender(gender);
+                    //  debugMode && console.log(`gender changed to ${gender}` );
+
+                    //  Order of children in localPlayer.outfit.direction.children array DOES MATTER.
+                    //  OutfitManager.add() must take care for localPlayer.oufit.direction.children order.
 
                         localPlayer.outfit.add(
                             {"body": window[gender].body},
@@ -178,6 +174,10 @@
                     })();
 
                 break;
+
+
+            //  OUTFIT.
+
 
                 case "/outfit/body":
 
@@ -205,7 +205,7 @@
 
                         })();
 
-                        break;
+                        break; // important!
 
                     } else {
 
@@ -234,7 +234,7 @@
 
                         })();
 
-                        break;
+                        break; // important!
 
                     }
 
@@ -246,28 +246,89 @@
 
                     if ( localPlayer.outfit.hairs ) {
 
-                        remove("hairs");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.remove("hairs");
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     } else {
 
-                        add("hairs");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.add({"hairs":window[gender].hairs});
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
+
                     }
 
                 break;
 
                 case "/outfit/stockings":
 
-                    var gender = localPlayer.outfit.getGender();
+                    if ( localPlayer.outfit.getGender("female") ) {
 
-                    if ( gender != "female" ) break;
+                        if ( localPlayer.outfit.stockings ) {
 
-                    if ( localPlayer.outfit.stockings ) {
+                            (function(){
 
-                        remove("stockings");
+                                localPlayer.outfit.direction.visible = false;
+                                $(localPlayer.outfit).one("change", function(){
+                                    setTimeout(function(){
+                                        localPlayer.outfit.direction.visible = true;
+                                    }, 250);
+                                });
 
-                    } else {
+                                localPlayer.outfit.remove("stockings");
 
-                        add("stockings");
+                                localPlayer.outfit.direction.children.forEach(function(item){
+                                    item.material.needsUpdate = true;
+                                });
+
+                            })();
+
+                        } else {
+
+                            (function(){
+
+                                localPlayer.outfit.direction.visible = false;
+                                $(localPlayer.outfit).one("change", function(){
+                                    setTimeout(function(){
+                                        localPlayer.outfit.direction.visible = true;
+                                    }, 250);
+                                });
+
+                                localPlayer.outfit.add({"stockings":female.stockings});
+
+                                localPlayer.outfit.direction.children.forEach(function(item){
+                                    item.material.needsUpdate = true;
+                                });
+
+                            })();
+
+                        }
 
                     }
 
@@ -279,32 +340,96 @@
 
                     if ( localPlayer.outfit.underwears ) {
 
-                        remove("underwears");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.remove("underwears");
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     } else {
 
-                        add("underwears");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.add(
+                                {"underwears":window[gender].underwears}
+                            );
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     }
 
                 break;
 
+
                 case "/outfit/dress":
 
-                    var gender = localPlayer.outfit.getGender();
+                    if ( localPlayer.outfit.getGender("female") ) {
 
-                    if ( gender != "female" ) break;
+                        localPlayer.outfit.remove("costume");
+                        localPlayer.outfit.remove("trousers");
 
-                    localPlayer.outfit.remove("costume");
-                    localPlayer.outfit.remove("trousers");
+                        if ( localPlayer.outfit.dress ) {
 
-                    if ( localPlayer.outfit.dress ) {
+                            (function(){
 
-                        remove("dress");
+                                localPlayer.outfit.direction.visible = false;
+                                $(localPlayer.outfit).one("change", function(){
+                                    setTimeout(function(){
+                                        localPlayer.outfit.direction.visible = true;
+                                    }, 250);
+                                });
 
-                    } else {
+                                localPlayer.outfit.remove("dress");
 
-                        add("dress");
+                                localPlayer.outfit.direction.children.forEach(function(item){
+                                    item.material.needsUpdate = true;
+                                });
+
+                            })();
+
+                        } else {
+
+                            (function(){
+
+                                localPlayer.outfit.direction.visible = false;
+                                $(localPlayer.outfit).one("change", function(){
+                                    setTimeout(function(){
+                                        localPlayer.outfit.direction.visible = true;
+                                    }, 250);
+                                });
+
+                            //  Female "dress" uses "localPlayer.outfit.dress" slot.
+                                localPlayer.outfit.add({"dress":female.dress});
+
+                                localPlayer.outfit.direction.children.forEach(function(item){
+                                    item.material.needsUpdate = true;
+                                });
+
+                            })();
+
+                        }
 
                     }
 
@@ -321,13 +446,44 @@
 
                     if ( localPlayer.outfit.costume ) {
 
-                        remove("costume");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.remove("costume");
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     } else {
 
-                        add("costume");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.add({"costume":window[gender].costume});
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     }
+
 
                 break;
 
@@ -337,12 +493,41 @@
 
                     if ( localPlayer.outfit.tshirt ) {
 
-                        remove("tshirt");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.remove("tshirt");
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     } else {
 
-                        add("tshirt");
+                        (function(){
 
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.add({"tshirt":window[gender].tshirt});
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
                     }
 
                 break;
@@ -357,11 +542,41 @@
 
                     if ( localPlayer.outfit.trousers ) {
 
-                        remove("trousers");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.remove("trousers");
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     } else {
 
-                        add("trousers");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.add({"trousers":window[gender].trousers});
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     }
 
@@ -373,11 +588,41 @@
 
                     if ( localPlayer.outfit.shoes ) {
 
-                        remove("shoes");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.remove("shoes");
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     } else {
 
-                        add("shoes");
+                        (function(){
+
+                            localPlayer.outfit.direction.visible = false;
+                            $(localPlayer.outfit).one("change", function(){
+                                setTimeout(function(){
+                                    localPlayer.outfit.direction.visible = true;
+                                }, 250);
+                            });
+
+                            localPlayer.outfit.add({"shoes":window[gender].shoes});
+
+                            localPlayer.outfit.direction.children.forEach(function(item){
+                                item.material.needsUpdate = true;
+                            });
+
+                        })();
 
                     }
 
@@ -390,4 +635,16 @@
         return localPlayer.outfit.toJSON();
 
     }
+
+
+    /*
+        function updatetoIdling(){
+        //  After "...outfit.add({object}), 
+        //  always action "idle" triggers.
+            localPlayer.controller.isIdling  = true;
+            localPlayer.controller.isRunning = false;
+            localPlayer.controller.isWalking = false;
+            localPlayer.controller.movementSpeed = 0;
+        }
+    */
 
