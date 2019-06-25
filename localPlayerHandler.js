@@ -20,7 +20,6 @@
             localPlayer.controller.isWalking = true;
             localPlayer.controller.movementSpeed = 28;
             localPlayer.outfit.AnimationsHandler.play("walk");
-            // "startRunning" event dispatches from "MWtps.js"!
         }
 
         function startRunning(){
@@ -30,7 +29,23 @@
             localPlayer.controller.isWalking = false;
             localPlayer.controller.movementSpeed = 45;
             localPlayer.outfit.AnimationsHandler.play("run");
-            // "startRunning" event dispatches from "MWtps.js"!
+        }
+
+        function add(name){
+
+            localPlayer.outfit.direction.visible = false;
+            $(localPlayer.outfit).one("change", function(){
+                setTimeout(function(){
+                    localPlayer.outfit.direction.visible = true;
+                }, 250);
+            });
+
+            localPlayer.outfit.add({[name]:window[gender][name]});
+
+            localPlayer.outfit.direction.children.forEach(function(item){
+                item.material.needsUpdate = true;
+            });
+
         }
 
         function remove(name){
@@ -50,22 +65,6 @@
 
         }
 
-        function add(name){
-
-            localPlayer.outfit.direction.visible = false;
-            $(localPlayer.outfit).one("change", function(){
-                setTimeout(function(){
-                    localPlayer.outfit.direction.visible = true;
-                }, 250);
-            });
-
-            localPlayer.outfit.add({[name]:window[gender][name]});
-
-            localPlayer.outfit.direction.children.forEach(function(item){
-                item.material.needsUpdate = true;
-            });
-
-        }
 
         for (var arg in arguments){
 
