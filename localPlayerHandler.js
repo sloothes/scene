@@ -34,6 +34,40 @@
             // "startRunning" event dispatches from "MWtps.js"!
         }
 
+        function remove(name){
+
+            localPlayer.outfit.direction.visible = false;
+            $(localPlayer.outfit).one("change", function(){
+                setTimeout(function(){
+                    localPlayer.outfit.direction.visible = true;
+                }, 250);
+            });
+
+            localPlayer.outfit.remove(name);
+
+            localPlayer.outfit.direction.children.forEach(function(item){
+                item.material.needsUpdate = true;
+            });
+
+        }
+
+        function add(name){
+
+            localPlayer.outfit.direction.visible = false;
+            $(localPlayer.outfit).one("change", function(){
+                setTimeout(function(){
+                    localPlayer.outfit.direction.visible = true;
+                }, 250);
+            });
+
+            localPlayer.outfit.add({[name]:window[gender][name]});
+
+            localPlayer.outfit.direction.children.forEach(function(item){
+                item.material.needsUpdate = true;
+            });
+
+        }
+
         for (var arg in arguments){
 
             var data = arguments[arg];
@@ -208,6 +242,20 @@
 
                 break;
 
+                case "/outfit/hairs":
+
+                    var gender = localPlayer.outfit.getGender();
+
+                    if ( localPlayer.outfit.hairs ) {
+
+                        remove("hairs");
+
+                    } else {
+
+                        add("hairs");
+                    }
+
+                break;
 
 
 
