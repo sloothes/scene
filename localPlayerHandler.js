@@ -349,27 +349,47 @@
 
                 break;
 
+                case "/outfit/trousers":
 
+                    var gender = localPlayer.outfit.getGender();
 
+                    if ( gender == "female" ) {
+                        localPlayer.outfit.remove("dress");
+                    }
 
+                    if ( localPlayer.outfit.trousers ) {
 
+                        remove("trousers");
 
+                    } else {
 
+                        add("trousers");
 
+                    }
 
+                break;
 
+                case "/outfit/shoes":
 
+                    var gender = localPlayer.outfit.getGender();
 
+                    if ( localPlayer.outfit.shoes ) {
 
+                        remove("shoes");
 
+                    } else {
 
+                        add("shoes");
 
+                    }
 
+                break;
 
+            }
 
+        }
 
+        return localPlayer.outfit.toJSON();
 
-
-
-
+    }
 
