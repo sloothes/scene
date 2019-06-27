@@ -1,4 +1,4 @@
-//  localPlayerHandler.js (v3.1)
+//  localPlayerHandler.js (v3.2)
 
     function localPlayerHandler(){
     //  Returns: localPlayer.outfit.toJSON();
@@ -51,9 +51,10 @@
 
             startIdling();
 
-            localPlayer.outfit.direction.children.forEach(function(item){
-                item.material.needsUpdate = true;
-            });
+            for (var key in window[gender]) {
+                if ( window[gender][ key ] == undefined ) return;
+                window[gender][ key ].material.needsUpdate = true;
+            }
 
         }
 
@@ -69,10 +70,6 @@
             localPlayer.outfit.remove(name);
 
             startIdling();
-
-            localPlayer.outfit.direction.children.forEach(function(item){
-                item.material.needsUpdate = true;
-            });
 
         }
 
@@ -184,13 +181,16 @@
 
                         updatetoIdling();
 
-                        localPlayer.outfit.direction.children.forEach(function(item){
-                            item.material.needsUpdate = true;
-                        });
+                        for (var key in window[gender]) {
+                            if ( window[gender][ key ] == undefined ) return;
+                            window[gender][ key ].material.needsUpdate = true;
+                        }
 
                     })();
 
                 break;
+
+            //  OUTFIT.
 
                 case "/outfit/body":
 
@@ -213,9 +213,7 @@
 
                             updatetoIdling();
 
-                            localPlayer.outfit.direction.children.forEach(function(item){
-                                item.material.needsUpdate = true;
-                            });
+                            skeleton.material.needsUpdate = true;
 
                         })();
 
@@ -244,9 +242,10 @@
 
                             updatetoIdling();
 
-                            localPlayer.outfit.direction.children.forEach(function(item){
-                                item.material.needsUpdate = true;
-                            });
+                            for (var key in window[gender]) {
+                                if ( window[gender][ key ] == undefined ) return;
+                                window[gender][ key ].material.needsUpdate = true;
+                            }
 
                         })();
 
