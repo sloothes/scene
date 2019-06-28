@@ -188,7 +188,6 @@
                                 {"body": female.body},
                                 {"eyes": female.eyes},
                                 {"hairs":female.hairs},
-                                {"stockings":female.stockings},
                                 {"underwears":female.underwears},
                                 {"dress":female.dress},
                                 {"shoes":female.shoes},
