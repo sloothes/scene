@@ -9,8 +9,9 @@ var male, female, skeleton;
 //  Disable outfit direction visible on startup.
 //  localPlayer.outfit.direction.visible = false;
 
+
 //  skeleton.
-    var skeletonOutfit = new AW3D.OutfitManager();
+
     skeleton = await db.collection("skeleton")
     .findOne({_id:"body"}, function(err){
         if (err) throw err;
@@ -19,19 +20,20 @@ var male, female, skeleton;
     }).catch(function(err){
         console.error(err);
     }).then(function(doc){
-        return skeletonOutfit.fromJSON({skeleton:doc});
+        return localPlayer.outfit.fromJSON({skeleton:doc});
     }).then(function(outfit){
          return outfit.skeleton;
     });
     debugMode && console.log({"skeleton":skeleton});
 
 
-    var mjson = {};
-    var maleOutfit = new AW3D.OutfitManager();
+//  male.
+
+    var mson = {};
     male = await db.collection("male")
     .find().forEach(
         function(doc){
-            mjson[doc._id] = doc;
+            mson[doc._id] = doc;
         }, 
         function(err){
             if (err) throw err;
@@ -39,19 +41,20 @@ var male, female, skeleton;
     ).catch(function(err){
         console.error(err);
     }).then(function(){
-        return maleOutfit.fromJSON(mjson);
+        return localPlayer.outfit.fromJSON(mson);
     }).then(function(outfit){
         return outfit;
     });
     debugMode && console.log({"male":male});
 
 
-    var fjson = {};
-    var femaleOutfit = new AW3D.OutfitManager();
+//  female.
+
+    var fson = {};
     female = await db.collection("female")
     .find().forEach(
         function(doc){
-            fjson[doc._id] = doc;
+            fson[doc._id] = doc;
         }, 
         function(err){
             if (err) throw err;
@@ -59,7 +62,7 @@ var male, female, skeleton;
     ).catch(function(err){
         console.error(err);
     }).then(function(){
-        return femaleOutfit.fromJSON(fjson);
+        return localPlayer.outfit.fromJSON(fson);
     }).then(function(outfit){
         return outfit;
     });
