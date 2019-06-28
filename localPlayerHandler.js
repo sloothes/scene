@@ -171,13 +171,29 @@
 
                         localPlayer.outfit.setGender(gender);
 
-                        localPlayer.outfit.add(
-                            {"body": window[gender].body},
-                            {"eyes": window[gender].eyes},
-                            {"hairs":window[gender].hairs},
-                            {"underwears":window[gender].underwears},
-                            {"shoes":window[gender].shoes},
-                        );
+                        if ( gender == "male" ) {
+
+                            localPlayer.outfit.add(
+                                {"body": male.body},
+                                {"eyes": male.eyes},
+                                {"hairs":male.hairs},
+                                {"tshirt":male.tshirt},
+                                {"trousers":male.trousers},
+                                {"shoes":male.shoes},
+                            );
+
+                        } else if ( gender == "female" ) {
+
+                            localPlayer.outfit.add(
+                                {"body": female.body},
+                                {"eyes": female.eyes},
+                                {"hairs":female.hairs},
+                                {"stockings":female.stockings},
+                                {"underwears":female.underwears},
+                                {"dress":female.dress},
+                                {"shoes":female.shoes},
+                            );
+                        }
 
                         updatetoIdling();
 
