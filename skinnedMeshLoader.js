@@ -72,7 +72,7 @@ var male, female, skeleton;
 //  Startup.
 
 //  localPlayerHandler("/turn/back");
-    localPlayerHandler("/gender/female");
+    localPlayerHandler("/gender/male");
 
 //  Enable outfit direction visible.
     localPlayer.outfit.direction.visible = true;
