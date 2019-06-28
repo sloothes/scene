@@ -2,6 +2,8 @@
 
     (async function(){
 
+        localPlayerHandler("/turn/back");
+
     //  Disable outfit direction visible on startup.
     //  localPlayer.outfit.direction.visible = false;
 
@@ -64,7 +66,7 @@
 
     //  Startup.
 
-        localPlayerHandler("/turn/back");
+    //  localPlayerHandler("/turn/back");
         localPlayerHandler("/gender/female");
 
     //  Enable outfit direction visible.
