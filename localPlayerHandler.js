@@ -40,12 +40,14 @@
 
         function add(name){
 
+        /*
             localPlayer.outfit.direction.visible = false;
             $(localPlayer.outfit).one("change", function(){
                 setTimeout(function(){
                     localPlayer.outfit.direction.visible = true;
                 }, 250);
             });
+        */
 
             localPlayer.outfit.add({[name]:window[gender][name]});
 
@@ -60,12 +62,14 @@
 
         function remove(name){
 
+        /*
             localPlayer.outfit.direction.visible = false;
             $(localPlayer.outfit).one("change", function(){
                 setTimeout(function(){
                     localPlayer.outfit.direction.visible = true;
                 }, 250);
             });
+        */
 
             localPlayer.outfit.remove(name);
 
@@ -215,12 +219,14 @@
 
                         (function(){
 
+                        /*
                             localPlayer.outfit.direction.visible = false;
                             $(localPlayer.outfit).one("change", function(){
                                 setTimeout(function(){
                                     localPlayer.outfit.direction.visible = true;
                                 }, 250);
                             });
+                        */
 
                             localPlayer.outfit.removeAll();
 
@@ -238,14 +244,16 @@
 
                         (function(){
 
+                        /*
                             localPlayer.outfit.direction.visible = false;
                             $(localPlayer.outfit).one("change", function(){
                                 setTimeout(function(){
                                     localPlayer.outfit.direction.visible = true;
                                 }, 250);
                             });
+                        */
 
-                            localPlayer.outfit.removeAll(); // important!
+                            localPlayer.outfit.removeAll();
 
                             localPlayer.outfit.add(
                                 {"body": window[gender].body},
