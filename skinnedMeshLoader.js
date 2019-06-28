@@ -3,7 +3,7 @@
     (async function(){
 
     //  Disable outfit direction visible on startup.
-        localPlayer.outfit.direction.visible = false;
+    //  localPlayer.outfit.direction.visible = false;
 
         male = {};
 
