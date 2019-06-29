@@ -153,7 +153,7 @@
 
             //  GENDER.
 
-                case "/gender/" + /\w/:
+                case /"/gender/"\w/:
                 case "/gender/male":
                 case "/gender/female":
 
