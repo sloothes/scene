@@ -153,7 +153,12 @@
 
             //  GENDER.
 
-                case "/gender":
+                case "/gender/":
+                case "/gender/null":
+                case "/gender/false":
+                case "/gender/skeleton":
+                case "/gender/undefined":
+
                 case "/gender/male":
                 case "/gender/female":
 
