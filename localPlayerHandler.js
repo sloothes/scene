@@ -167,7 +167,7 @@
                         debugMode && console.log(`set gender to ${gender}`);
                         debugMode && console.log("gender match:", localPlayer.outfit.getGender(gender));
 
-                        if ( localPlayer.outfit.getGender(gender) ) break;
+                        if ( localPlayer.outfit.getGender(gender) ) return;
 
                         localPlayer.outfit.direction.visible = false;
                         $(localPlayer.outfit).one("change", function(){
