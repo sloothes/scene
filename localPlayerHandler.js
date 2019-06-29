@@ -154,6 +154,7 @@
             //  GENDER.
 
                 case "/gender/":
+                case "/gender/NaN":
                 case "/gender/null":
                 case "/gender/false":
                 case "/gender/undefined":
