@@ -162,7 +162,7 @@
 
                     if ( localPlayer.outfit.getGender(gender) ) break;
 
-                    (async function(){
+                    (function(){
 
                         localPlayer.outfit.direction.visible = false;
                         $(localPlayer.outfit).one("change", function(){
