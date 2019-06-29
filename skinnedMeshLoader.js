@@ -1,4 +1,4 @@
-//  skinnedMeshLoader.js (v6.1)
+//  skinnedMeshLoader.js (v6.2)
 
 var male, female, skeleton;
 
@@ -7,7 +7,7 @@ var male, female, skeleton;
     localPlayerHandler("/turn/back");
 
 //  Disable outfit direction visible on startup.
-    localPlayer.outfit.direction.visible = false;
+//  localPlayer.outfit.direction.visible = false;
 
 
 //  skeleton.
@@ -24,6 +24,10 @@ var male, female, skeleton;
     }).then(function(outfit){
          return outfit.skeleton;
     });
+
+//  Create an animationHandler for skeleton.
+    var animationHandler = new AW3D.AnimationHandler(skeleton, null);
+    localPlayer.outfit.AnimationsHandler.push( animationHandler );
     debugMode && console.log({"skeleton":skeleton});
 
 
