@@ -156,19 +156,18 @@
                 case "/gender/":
                 case "/gender/null":
                 case "/gender/false":
-                case "/gender/skeleton":
                 case "/gender/undefined":
 
                 case "/gender/male":
                 case "/gender/female":
 
-                    var gender = data.split("/").pop();
-                    debugMode && console.log(`set gender to ${gender}`);
-                    debugMode && console.log("gender match:", localPlayer.outfit.getGender(gender));
-
-                    if ( localPlayer.outfit.getGender(gender) ) break;
-
                     (function(){
+
+                        var gender = data.split("/").pop();
+                        debugMode && console.log(`set gender to ${gender}`);
+                        debugMode && console.log("gender match:", localPlayer.outfit.getGender(gender));
+
+                        if ( localPlayer.outfit.getGender(gender) ) break;
 
                         localPlayer.outfit.direction.visible = false;
                         $(localPlayer.outfit).one("change", function(){
@@ -177,10 +176,13 @@
                             }, 250);
                         });
 
+                    //  Remove.
                         localPlayer.outfit.removeAll();
 
+                    //  Set gender.
                         localPlayer.outfit.setGender(gender);
 
+                    //  Add outfits.
                         if ( !localPlayer.outfit.getGender() ) {
 
                             localPlayer.outfit.add(
@@ -210,8 +212,10 @@
                             );
                         }
 
+                    //  Update controller.
                         updatetoIdling();
 
+                    //  Update materials.
                         for (var key in window[gender]) {
                             if ( window[gender][ key ] == undefined ) return;
                             window[gender][ key ].material.needsUpdate = true;
