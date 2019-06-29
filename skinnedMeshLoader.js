@@ -10,23 +10,6 @@ var male, female, skeleton;
 //  localPlayer.outfit.direction.visible = false;
 
 
-//  skeleton.
-
-    skeleton = await db.collection("skeleton")
-    .findOne({_id:"body"}, function(err){
-        if (err) throw err;
-    }).then(function(doc){
-        return doc;
-    }).catch(function(err){
-        console.error(err);
-    }).then(function(doc){
-        return localPlayer.outfit.fromJSON({skeleton:doc});
-    }).then(function(outfit){
-         return outfit.skeleton;
-    });
-    debugMode && console.log({"skeleton":skeleton});
-
-
 //  male.
 
     var mson = {};
@@ -69,6 +52,23 @@ var male, female, skeleton;
     debugMode && console.log({"female":female});
 
 
+//  skeleton.
+
+    skeleton = await db.collection("skeleton")
+    .findOne({_id:"body"}, function(err){
+        if (err) throw err;
+    }).then(function(doc){
+        return doc;
+    }).catch(function(err){
+        console.error(err);
+    }).then(function(doc){
+        return localPlayer.outfit.fromJSON({skeleton:doc});
+    }).then(function(outfit){
+         return outfit.skeleton;
+    });
+    debugMode && console.log({"skeleton":skeleton});
+
+
 //  Startup.
 
 //  localPlayerHandler("/turn/back");
@@ -77,9 +77,11 @@ var male, female, skeleton;
 //  Enable outfit direction visible.
     localPlayer.outfit.direction.visible = true;
 
+/*
 //  Create an animationHandler for skeleton.
     var animationHandler = new AW3D.AnimationHandler(skeleton, null);
     localPlayer.outfit.AnimationsHandler.push( animationHandler );
     debugMode && console.log({"localPlayer outfit":localPlayer.outfit});
+*/
 
 })();
