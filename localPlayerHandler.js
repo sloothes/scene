@@ -153,7 +153,6 @@
 
             //  GENDER.
 
-                case /"/gender/"\w/:
                 case "/gender/male":
                 case "/gender/female":
 
@@ -176,13 +175,13 @@
 
                         localPlayer.outfit.setGender(gender);
 
-                        if ( gender == undefined ) {
+                        if ( !localPlayer.outfit.getGender() ) {
 
                             localPlayer.outfit.add(
                                 {"skeleton": skeleton}
                             );
 
-                        } else if ( gender == "male" ) {
+                        } else if ( localPlayer.outfit.getGender("male") ) {
 
                             localPlayer.outfit.add(
                                 {"body": male.body},
@@ -193,7 +192,7 @@
                                 {"shoes":male.shoes},
                             );
 
-                        } else if ( gender == "female" ) {
+                        } else if ( localPlayer.outfit.getGender("female") ) {
 
                             localPlayer.outfit.add(
                                 {"body": female.body},
