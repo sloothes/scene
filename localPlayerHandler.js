@@ -159,7 +159,9 @@
                 case "/gender/undefined":
 
                 case "/gender/male":
+                case "/gender/trans":
                 case "/gender/female":
+                case "/gender/shemale":
 
                     (function(){
 
