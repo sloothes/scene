@@ -154,12 +154,14 @@
 
                         if ( localPlayer.outfit.getGender(gender) ) return;
 
+                    /*
                         localPlayer.outfit.direction.visible = false;
                         $(localPlayer.outfit).one("change", function(){
                             setTimeout(function(){
                                 localPlayer.outfit.direction.visible = true;
                             }, 250);
                         });
+                    */
 
                     //  Remove.
                         localPlayer.outfit.removeAll();
