@@ -1,4 +1,5 @@
 //  localPlayerHandler.js (v3.2)
+// hot "add/remove" from AW3D v0.3.7 and later.
 
     function localPlayerHandler(){
     //  Returns: localPlayer.outfit.toJSON();
@@ -51,7 +52,7 @@
 
             localPlayer.outfit.add({[name]:window[gender][name]});
 
-            startIdling();
+        //  startIdling();  // hot "add" from AW3D v0.3.7 and later.
 
             for (var key in window[gender]) {
                 if ( window[gender][ key ] == undefined ) return;
@@ -73,7 +74,7 @@
 
             localPlayer.outfit.remove(name);
 
-            startIdling();
+        //  startIdling();  // hot "remove" from AW3D v0.3.7 and later.
 
         }
 
@@ -216,7 +217,7 @@
                         }
 
                     //  Update controller.
-                        updatetoIdling();
+                    //  updatetoIdling();  // hot "add" from AW3D v0.3.7 and later.
 
                     //  Update materials.
                         for (var key in window[gender]) {
@@ -251,7 +252,7 @@
 
                             localPlayer.outfit.add( {"skeleton": skeleton} );
 
-                            updatetoIdling();
+                        //  updatetoIdling();  // hot "add" from AW3D v0.3.7 and later.
 
                             skeleton.material.needsUpdate = true;
 
@@ -282,7 +283,7 @@
                                 {"shoes":window[gender].shoes},
                             );
 
-                            updatetoIdling();
+                        //  updatetoIdling();  // hot "add" from AW3D v0.3.7 and later.
 
                             for (var key in window[gender]) {
                                 if ( window[gender][ key ] == undefined ) return;
@@ -301,13 +302,13 @@
 
                     var gender = localPlayer.outfit.getGender();
 
-                    if ( localPlayer.outfit.hairs ) {
+                    if ( !localPlayer.outfit.hairs ) {
 
-                        remove("hairs");
+                        add("hairs");
 
                     } else {
 
-                        add("hairs");
+                        remove("hairs");
                     }
 
                 break;
@@ -318,13 +319,13 @@
 
                     if ( gender != "female" ) break;
 
-                    if ( localPlayer.outfit.stockings ) {
+                    if ( !localPlayer.outfit.stockings ) {
 
-                        remove("stockings");
+                        add("stockings");
 
                     } else {
 
-                        add("stockings");
+                        remove("stockings");
 
                     }
 
@@ -334,13 +335,13 @@
 
                     var gender = localPlayer.outfit.getGender();
 
-                    if ( localPlayer.outfit.underwears ) {
+                    if ( !localPlayer.outfit.underwears ) {
 
-                        remove("underwears");
+                        add("underwears");
 
                     } else {
 
-                        add("underwears");
+                        remove("underwears");
 
                     }
 
@@ -355,13 +356,13 @@
                     }
 
 
-                    if ( localPlayer.outfit.costume ) {
+                    if ( !localPlayer.outfit.costume ) {
 
-                        remove("costume");
+                        add("costume");
 
                     } else {
 
-                        add("costume");
+                        remove("costume");
 
                     }
 
@@ -371,13 +372,13 @@
 
                     var gender = localPlayer.outfit.getGender();
 
-                    if ( localPlayer.outfit.tshirt ) {
+                    if ( !localPlayer.outfit.tshirt ) {
 
-                        remove("tshirt");
+                        add("tshirt");
 
                     } else {
 
-                        add("tshirt");
+                        remove("tshirt");
 
                     }
 
@@ -391,13 +392,13 @@
                         localPlayer.outfit.remove("dress");
                     }
 
-                    if ( localPlayer.outfit.trousers ) {
+                    if ( !localPlayer.outfit.trousers ) {
 
-                        remove("trousers");
+                        add("trousers");
 
                     } else {
 
-                        add("trousers");
+                        remove("trousers");
 
                     }
 
@@ -412,13 +413,13 @@
                     localPlayer.outfit.remove("costume");
                     localPlayer.outfit.remove("trousers");
 
-                    if ( localPlayer.outfit.dress ) {
+                    if ( !localPlayer.outfit.dress ) {
 
-                        remove("dress");
+                        add("dress");
 
                     } else {
 
-                        add("dress");
+                        remove("dress");
 
                     }
 
@@ -428,13 +429,13 @@
 
                     var gender = localPlayer.outfit.getGender();
 
-                    if ( localPlayer.outfit.shoes ) {
+                    if ( !localPlayer.outfit.shoes ) {
 
-                        remove("shoes");
+                        add("shoes");
 
                     } else {
 
-                        add("shoes");
+                        remove("shoes");
 
                     }
 
