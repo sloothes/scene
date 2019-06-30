@@ -72,16 +72,9 @@ var male, female, skeleton;
 //  Startup.
 
 //  localPlayerHandler("/turn/back");
-    localPlayerHandler("/gender/male");
+    localPlayerHandler("/gender/female");
 
 //  Enable outfit direction visible.
     localPlayer.outfit.direction.visible = true;
-
-/*
-//  Create an animationHandler for skeleton.
-    var animationHandler = new AW3D.AnimationHandler(skeleton, null);
-    localPlayer.outfit.AnimationsHandler.push( animationHandler );
-    debugMode && console.log({"localPlayer outfit":localPlayer.outfit});
-*/
 
 })();
