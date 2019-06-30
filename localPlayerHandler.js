@@ -41,21 +41,12 @@
 
         function add(name){
 
-        /*
-            localPlayer.outfit.direction.visible = false;
-            $(localPlayer.outfit).one("change", function(){
-                setTimeout(function(){
-                    localPlayer.outfit.direction.visible = true;
-                }, 250);
-            });
-        */
-
             localPlayer.outfit.add({[name]:window[gender][name]});
-
         //  startIdling();  // hot "add" from AW3D v0.3.7 and later.
 
             for (var key in window[gender]) {
-                if ( window[gender][ key ] == undefined ) return;
+                if ( !key ) return;
+            //  if ( window[gender][ key ] == undefined ) return;
                 window[gender][ key ].material.needsUpdate = true;
             }
 
@@ -63,17 +54,7 @@
 
         function remove(name){
 
-        /*
-            localPlayer.outfit.direction.visible = false;
-            $(localPlayer.outfit).one("change", function(){
-                setTimeout(function(){
-                    localPlayer.outfit.direction.visible = true;
-                }, 250);
-            });
-        */
-
             localPlayer.outfit.remove(name);
-
         //  startIdling();  // hot "remove" from AW3D v0.3.7 and later.
 
         }
@@ -217,7 +198,7 @@
                         }
 
                     //  Update controller.
-                    //  updatetoIdling();  // hot "add" from AW3D v0.3.7 and later.
+                        updatetoIdling();
 
                     //  Update materials.
                         for (var key in window[gender]) {
@@ -239,20 +220,11 @@
 
                         (function(){
 
-                        /*
-                            localPlayer.outfit.direction.visible = false;
-                            $(localPlayer.outfit).one("change", function(){
-                                setTimeout(function(){
-                                    localPlayer.outfit.direction.visible = true;
-                                }, 250);
-                            });
-                        */
-
                             localPlayer.outfit.removeAll();
 
                             localPlayer.outfit.add( {"skeleton": skeleton} );
 
-                        //  updatetoIdling();  // hot "add" from AW3D v0.3.7 and later.
+                            updatetoIdling();  // important!
 
                             skeleton.material.needsUpdate = true;
 
@@ -264,15 +236,6 @@
 
                         (function(){
 
-                        /*
-                            localPlayer.outfit.direction.visible = false;
-                            $(localPlayer.outfit).one("change", function(){
-                                setTimeout(function(){
-                                    localPlayer.outfit.direction.visible = true;
-                                }, 250);
-                            });
-                        */
-
                             localPlayer.outfit.removeAll();
 
                             localPlayer.outfit.add(
@@ -283,7 +246,7 @@
                                 {"shoes":window[gender].shoes},
                             );
 
-                        //  updatetoIdling();  // hot "add" from AW3D v0.3.7 and later.
+                            updatetoIdling();  // important!
 
                             for (var key in window[gender]) {
                                 if ( window[gender][ key ] == undefined ) return;
@@ -354,7 +317,6 @@
                     if ( gender == "female" ) {
                         localPlayer.outfit.remove("dress");
                     }
-
 
                     if ( !localPlayer.outfit.costume ) {
 
