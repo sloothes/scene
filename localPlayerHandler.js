@@ -1,4 +1,4 @@
-//  localPlayerHandler.js (v3.2)
+//  localPlayerHandler.js (v3.3)
 // hot "add/remove" from AW3D v0.3.7 and later.
 
     function localPlayerHandler(){
