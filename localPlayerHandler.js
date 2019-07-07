@@ -461,3 +461,122 @@
 
     }
 
+
+//  localPlayerMaterialHandler.js (v1.3)
+
+    function localPlayerMaterialHandler(){
+
+        for (var arg in arguments) {
+
+            var data = arguments[arg];
+
+        //  var key = data.key;
+        //  var slot = data.slot;
+        //  var value = data.value;
+        //  var gender = data.gender;
+
+            var material = window[ data.gender ][ data.slot ].material;
+
+            switch (data.key) {
+
+        for (var arg in arguments) {
+
+            //  Colors.
+
+                case "color":
+                case "emissive":
+                    material[data.key].setHex(data.value);
+                break;
+
+            //  Textures.
+
+                case "map":
+                case "aoMap":
+                case "envMap":
+                case "bumpMap":
+                case "alphaMap":
+                case "lightMap":
+                case "normalMap":
+                case "emissiveMap":
+                case "metalnessMap":
+                case "roughnessMap":
+                case "displacementMap":
+
+                //  costumized version of texturefromJSON(data.value);
+
+                    if (data.value == null) {
+
+                        if ( material[ data.key ] ) {
+                            var oldTexture = material[ data.key ];
+                            material[ data.key ] = null;
+                            material.needsUpdate = true;
+                            oldTexture.dispose();
+                        }
+
+                    } else {
+
+                        var oldTexture;
+                        if (material[ data.key ] != null) oldTexture = material[data.key];
+
+                        var newTexture = new THREE.Texture();
+
+                        for ( var name in data.value ){
+                            switch (name){
+
+                            //  case "image": // no image case.
+
+                            //  sourceFile.
+                                case "sourceFile":
+                                    newTexture.sourceFile = data.value[ name ];
+                                    debugMode && console.log({[name]:data.value[name]});
+                                    var url = data.value.sourceFile || data.value.image.src || data.value.image;
+                                    var img = new Image();
+                                    img.crossOrigin = "anonymous";
+                                    $(img).one("load", function(){
+                                        var canvas = makePowerOfTwo( img, true );
+                                        newTexture.image = canvas;
+                                        material[data.key] = newTexture;
+                                        material[data.key].needsUpdate = true;
+                                        material.needsUpdate = true;
+                                        if (canvas) $(img).remove();
+                                        if (oldTexture) oldTexture.dispose();
+                                    });
+                                    img.src = url;
+                                break;
+
+                            //  array to vector2.
+                                case "offset":
+                                case "repeat":
+                                    if ( typeof(data.value[ name ]) != "array" ) break;
+                                    if ( data.value[ name ].length != 2) break;
+                                    newTexture[ name ] = new THREE.Vector2();
+                                    newTexture[ name ].fromArray( data.value[ name ] );
+                                break;
+
+                            //  wrapS & wrapT.
+                                case "wrap":
+                                    if ( typeof(data.value[ name ]) != "array" ) break;
+                                    if ( data.value[ name ].length != 2) break;
+                                    newTexture.wrapS = data.value[ name ][0];
+                                    newTexture.wrapT = data.value[ name ][1];
+                                break;
+
+                                default:
+                                    newTexture[ name ] = data.value[ name ];
+                                break;
+                            }
+                        }
+                    }
+
+                break;
+
+                default:
+                    material[data.key] = data.value;
+                break;
+
+            }
+
+        }
+
+    }
+
