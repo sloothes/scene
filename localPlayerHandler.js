@@ -1,4 +1,4 @@
-//  localPlayerHandler.js (v3.3)
+//  localPlayerHandler.js (v3.4)
 // hot "add/remove" from AW3D v0.3.7 and later.
 
     function localPlayerHandler(){
@@ -42,11 +42,9 @@
         function add(name){
 
             localPlayer.outfit.add({[name]:window[gender][name]});
-        //  startIdling();  // hot "add" from AW3D v0.3.7 and later.
 
             for (var key in window[gender]) {
                 if ( !key ) return;
-            //  if ( window[gender][ key ] == undefined ) return;
                 window[gender][ key ].material.needsUpdate = true;
             }
 
@@ -55,7 +53,6 @@
         function remove(name){
 
             localPlayer.outfit.remove(name);
-        //  startIdling();  // hot "remove" from AW3D v0.3.7 and later.
 
         }
 
@@ -403,6 +400,57 @@
 
                     }
 
+                break;
+
+            //  outfitSelectHandler.js
+
+                case "/select/body":
+                    remove("costume", "tshirt", "trousers", "dress", "shoes");
+                    if ( !localPlayer.outfit.body ) add("body");
+                break;
+
+                case "/select/eyes":
+                    if ( !localPlayer.outfit.eyes ) add("eyes");
+                break;
+
+                case "/select/hairs":
+                    if ( !localPlayer.outfit.hairs ) add("hairs");
+                break;
+
+                case "/select/stockings":
+                    if ( gender != "female" ) break;
+                    remove("costume", "trousers");
+                    if ( !localPlayer.outfit.stockings ) add("stockings");
+                break;
+
+                case "/select/underwears":
+                    remove("costume", "tshirt", "trousers", "dress");
+                    if ( !localPlayer.outfit.underwears ) add("underwears");
+                break;
+
+                case "/select/costume":
+                    remove("tshirt", "trousers", "dress");
+                    if ( !localPlayer.outfit.costume ) add("costume");
+                break;
+
+                case "/select/tshirt":
+                    remove("costume", "dress");
+                    if ( !localPlayer.outfit.tshirt ) add("tshirt");
+                break;
+
+                case "/select/trousers":
+                    remove("costume", "dress");
+                    if ( !localPlayer.outfit.trousers ) add("trousers");
+                break;
+
+                case "/select/dress":
+                    if ( gender != "female" ) break;
+                    remove("costume", "trousers", "tshirt");
+                    if ( !localPlayer.outfit.dress ) add("dress");
+                break;
+
+                case "/select/shoes":
+                    if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
             }
