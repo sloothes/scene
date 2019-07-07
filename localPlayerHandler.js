@@ -39,13 +39,16 @@
             localPlayer.outfit.AnimationsHandler.play("run");
         }
 
-        function add(name){
+        function add(){
 
             var gender = localPlayer.outfit.getGender();
 
             if (!gender) return;
 
-            localPlayer.outfit.add({[name]:window[gender][name]});
+            for (var arg in arguments) {
+                var name = arguments[arg];
+                localPlayer.outfit.add({[name]:window[gender][name]});
+            }
 
             for (var key in window[gender]) {
                 if ( !key ) return;
@@ -54,10 +57,11 @@
 
         }
 
-        function remove(name){
-
-            localPlayer.outfit.remove(name);
-
+        function remove(){
+            for (var arg in arguments) {
+                var name = arguments[arg];
+                localPlayer.outfit.remove(name);
+            }
         }
 
 
