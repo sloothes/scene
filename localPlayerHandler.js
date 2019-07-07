@@ -41,6 +41,10 @@
 
         function add(name){
 
+            var gender = localPlayer.outfit.getGender();
+
+            if (!gender) return;
+
             localPlayer.outfit.add({[name]:window[gender][name]});
 
             for (var key in window[gender]) {
@@ -146,7 +150,6 @@
                     (function(){
 
                         var gender = data.split("/").pop();
-                        debugMode && console.log(`set gender to ${gender}`);
                         debugMode && console.log("gender match:", localPlayer.outfit.getGender(gender));
 
                         if ( localPlayer.outfit.getGender(gender) ) return;
@@ -173,7 +176,9 @@
                                 {"skeleton": skeleton}
                             );
 
-                        } else if ( localPlayer.outfit.getGender("male") ) {
+                        }
+
+                        if ( localPlayer.outfit.getGender("male") ) {
 
                             localPlayer.outfit.add(
                                 {"body": male.body},
@@ -184,7 +189,9 @@
                                 {"shoes":male.shoes},
                             );
 
-                        } else if ( localPlayer.outfit.getGender("female") ) {
+                        } 
+
+                        if ( localPlayer.outfit.getGender("female") ) {
 
                             localPlayer.outfit.add(
                                 {"body": female.body},
@@ -200,8 +207,11 @@
                         updatetoIdling();
 
                     //  Update materials.
+                        var gender = localPlayer.outfit.getGender();
+                        if ( !gender ) return;
                         for (var key in window[gender]) {
-                            if ( window[gender][ key ] == undefined ) return;
+                            if ( key == undefined ) return;
+                        //  if ( window[gender][ key ] == undefined ) return;
                             window[gender][ key ].material.needsUpdate = true;
                         }
 
@@ -212,8 +222,6 @@
             //  OUTFIT.
 
                 case "/outfit/body":
-
-                    var gender = localPlayer.outfit.getGender();
 
                     if ( localPlayer.outfit.body ) {
 
@@ -235,6 +243,8 @@
 
                         (function(){
 
+                            var gender = localPlayer.outfit.getGender();
+
                             localPlayer.outfit.removeAll();
 
                             localPlayer.outfit.add(
@@ -245,10 +255,11 @@
                                 {"shoes":window[gender].shoes},
                             );
 
-                            updatetoIdling();  // important!
+                            updatetoIdling();
 
                             for (var key in window[gender]) {
-                                if ( window[gender][ key ] == undefined ) return;
+                                if ( key == undefined ) return;
+                            //  if ( window[gender][ key ] == undefined ) return;
                                 window[gender][ key ].material.needsUpdate = true;
                             }
 
@@ -261,8 +272,6 @@
                 break;
 
                 case "/outfit/hairs":
-
-                    var gender = localPlayer.outfit.getGender();
 
                     if ( !localPlayer.outfit.hairs ) {
 
@@ -277,9 +286,7 @@
 
                 case "/outfit/stockings":
 
-                    var gender = localPlayer.outfit.getGender();
-
-                    if ( gender != "female" ) break;
+                    if ( !localPlayer.outfit.getGender("female") ) break;
 
                     if ( !localPlayer.outfit.stockings ) {
 
@@ -295,8 +302,6 @@
 
                 case "/outfit/underwears":
 
-                    var gender = localPlayer.outfit.getGender();
-
                     if ( !localPlayer.outfit.underwears ) {
 
                         add("underwears");
@@ -311,9 +316,7 @@
 
                 case "/outfit/costume":
 
-                    var gender = localPlayer.outfit.getGender();
-
-                    if ( gender == "female" ) {
+                    if ( localPlayer.outfit.getGender("female") ) {
                         localPlayer.outfit.remove("dress");
                     }
 
@@ -331,8 +334,6 @@
 
                 case "/outfit/tshirt":
 
-                    var gender = localPlayer.outfit.getGender();
-
                     if ( !localPlayer.outfit.tshirt ) {
 
                         add("tshirt");
@@ -347,9 +348,7 @@
 
                 case "/outfit/trousers":
 
-                    var gender = localPlayer.outfit.getGender();
-
-                    if ( gender == "female" ) {
+                    if ( localPlayer.outfit.getGender("female") ) {
                         localPlayer.outfit.remove("dress");
                     }
 
@@ -367,9 +366,7 @@
 
                 case "/outfit/dress":
 
-                    var gender = localPlayer.outfit.getGender();
-
-                    if ( gender != "female" ) break;
+                    if ( !localPlayer.outfit.getGender("female") ) break;
 
                     localPlayer.outfit.remove("costume");
                     localPlayer.outfit.remove("trousers");
@@ -388,8 +385,6 @@
 
                 case "/outfit/shoes":
 
-                    var gender = localPlayer.outfit.getGender();
-
                     if ( !localPlayer.outfit.shoes ) {
 
                         add("shoes");
@@ -405,61 +400,51 @@
             //  outfitSelectHandler.js
 
                 case "/select/body":
-                    var gender = localPlayer.outfit.getGender();
                     remove("costume", "tshirt", "trousers", "dress", "shoes");
                     if ( !localPlayer.outfit.body ) add("body");
                 break;
 
                 case "/select/eyes":
-                    var gender = localPlayer.outfit.getGender();
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                 break;
 
                 case "/select/hairs":
-                    var gender = localPlayer.outfit.getGender();
                     if ( !localPlayer.outfit.hairs ) add("hairs");
                 break;
 
                 case "/select/stockings":
-                    var gender = localPlayer.outfit.getGender();
-                    if ( gender != "female" ) break;
+                    if ( !localPlayer.outfit.getGender("female") ) break;
                     remove("costume", "trousers");
                     if ( !localPlayer.outfit.stockings ) add("stockings");
                 break;
 
                 case "/select/underwears":
-                    var gender = localPlayer.outfit.getGender();
                     remove("costume", "tshirt", "trousers", "dress");
                     if ( !localPlayer.outfit.underwears ) add("underwears");
                 break;
 
                 case "/select/costume":
-                    var gender = localPlayer.outfit.getGender();
                     remove("tshirt", "trousers", "dress");
                     if ( !localPlayer.outfit.costume ) add("costume");
                 break;
 
                 case "/select/tshirt":
-                    var gender = localPlayer.outfit.getGender();
                     remove("costume", "dress");
                     if ( !localPlayer.outfit.tshirt ) add("tshirt");
                 break;
 
                 case "/select/trousers":
-                    var gender = localPlayer.outfit.getGender();
                     remove("costume", "dress");
                     if ( !localPlayer.outfit.trousers ) add("trousers");
                 break;
 
                 case "/select/dress":
-                    var gender = localPlayer.outfit.getGender();
-                    if ( gender != "female" ) break;
+                    if ( !localPlayer.outfit.getGender("female") ) break;
                     remove("costume", "trousers", "tshirt");
                     if ( !localPlayer.outfit.dress ) add("dress");
                 break;
 
                 case "/select/shoes":
-                    var gender = localPlayer.outfit.getGender();
                     if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
