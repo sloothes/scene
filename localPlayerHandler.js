@@ -426,6 +426,8 @@
 
                 case "/select/hairs":
                     remove("skeleton");
+                    if ( !localPlayer.outfit.body ) add("body");
+                    if ( !localPlayer.outfit.eyes ) add("eyes");
                     if ( !localPlayer.outfit.hairs ) add("hairs");
                 break;
 
