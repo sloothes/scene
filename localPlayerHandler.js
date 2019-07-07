@@ -489,8 +489,6 @@
 
             switch (data.key) {
 
-        for (var arg in arguments) {
-
             //  Colors.
 
                 case "color":
