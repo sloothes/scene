@@ -501,6 +501,13 @@
                     material[data.key].setHex(data.value);
                 break;
 
+            //  Shading.
+
+                case "shading":
+                    material[data.key] = data.value;
+                    material.needsUpdate = true;
+                break;
+
             //  Textures.
 
                 case "map":
