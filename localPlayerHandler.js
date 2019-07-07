@@ -408,12 +408,6 @@
                 case "/select/null":
                 case "/select/false":
                 case "/select/undefined":
-                /*
-                    remove("stockings", "underwears", "costume", "tshirt", "trousers", "dress", "shoes", "skeleton");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
-                */
                     localPlayer.outfit.removeAll();
                     localPlayer.outfit.add({skeleton:skeleton});
                 break;
@@ -421,10 +415,12 @@
                 case "/select/body":
                     remove("skeleton", "costume", "tshirt", "trousers", "dress", "shoes");
                     if ( !localPlayer.outfit.body ) add("body");
+                    if ( !localPlayer.outfit.eyes ) add("eyes");
                 break;
 
                 case "/select/eyes":
                     remove("skeleton");
+                    if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                 break;
 
