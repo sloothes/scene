@@ -504,6 +504,7 @@
             //  Shading.
 
                 case "shading":
+                case "skinning":
                     material[data.key] = data.value;
                     material.needsUpdate = true;
                 break;
