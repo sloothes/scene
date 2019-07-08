@@ -416,12 +416,14 @@
                     remove("skeleton", "costume", "tshirt", "trousers", "dress", "shoes");
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
+                    if ( !localPlayer.outfit.hairs ) add("hairs");
                 break;
 
                 case "/select/eyes":
                     remove("skeleton");
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
+                    if ( !localPlayer.outfit.hairs ) add("hairs");
                 break;
 
                 case "/select/hairs":
