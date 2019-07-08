@@ -556,7 +556,6 @@
                             //  sourceFile.
                                 case "sourceFile":
                                     newTexture.sourceFile = data.value[ name ];
-                                    debugMode && console.log({[name]:data.value[name]});
                                     var url = data.value.sourceFile || data.value.image.src || data.value.image;
                                     var img = new Image();
                                     img.crossOrigin = "anonymous";
