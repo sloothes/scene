@@ -509,6 +509,13 @@
                     material.needsUpdate = true;
                 break;
 
+            //  Normal scale.
+
+                case "normalScale":
+                    material.normalScale.set( data.value, data.value );
+                break;
+
+
             //  Textures.
 
                 case "map":
