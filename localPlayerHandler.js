@@ -433,7 +433,7 @@
 
                 case "/select/stockings":
                     if ( !localPlayer.outfit.getGender("female") ) break;
-                    remove("skeleton", "costume", "trousers");
+                    remove("skeleton", "costume", "trousers", "dress");
                     if ( !localPlayer.outfit.stockings ) add("stockings");
                 break;
 
