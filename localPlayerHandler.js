@@ -486,14 +486,17 @@
         if ( !data.gender ) return;
         if ( !data.material ) return;
 
+        if ( !window[ data.gender ][ data.slot ] ) return;
+
         if ( "validator" in window ) {
             var str = JSON.stringify(data.material);
             if ( !validator.isJSON(str) ) return;
         }
-        
+
         //  var slot = data.slot;
         //  var gender = data.gender;
         //  var material = materialfromJSON(data.material);
+        //  window[ gender ][ slot ].material = material;
 
         window[ data.gender ][ data.slot ].material = materialfromJSON(data.material);
 
@@ -507,10 +510,10 @@
 
             var data = arguments[arg];
 
-        //  var key = data.key;
-        //  var slot = data.slot;
-        //  var value = data.value;
-        //  var gender = data.gender;
+            //  var key = data.key;
+            //  var slot = data.slot;
+            //  var value = data.value;
+            //  var gender = data.gender;
 
             var material = window[ data.gender ][ data.slot ].material;
 
