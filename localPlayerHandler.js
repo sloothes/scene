@@ -478,11 +478,15 @@
 
     }
 
-//  localPlayerSetOutfitMaterial.js (v1.0)
+//  localPlayerApplyMaterial.js (v1.0)
 
-    function localPlayerSetOutfitMaterial(data){
+    function localPlayerApplyMaterial(data){
 
-        window[ data.gender ][ data.slot ].material = data.material;
+        //  var slot = data.slot;
+        //  var gender = data.gender;
+        //  var material = materialfromJSON(data.material);
+
+        window[ data.gender ][ data.slot ].material = materialfromJSON(data.material);
 
     }
 
