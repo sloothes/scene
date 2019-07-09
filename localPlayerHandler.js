@@ -482,6 +482,15 @@
 
     function localPlayerApplyMaterial(data){
 
+        if ( !data.slot ) return;
+        if ( !data.gender ) return;
+        if ( !data.material ) return;
+
+        if ( "validator" in window ) {
+            var str = JSON.stringify(data.material);
+            if ( !validator.isJSON(str) ) return;
+        }
+        
         //  var slot = data.slot;
         //  var gender = data.gender;
         //  var material = materialfromJSON(data.material);
