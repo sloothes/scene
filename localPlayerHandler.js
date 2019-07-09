@@ -478,9 +478,9 @@
 
     }
 
-//  localPlayerChangeMaterial.js (v1.0)
+//  localPlayerApplyMaterial.js (v1.0)
 
-    function localPlayerChangeMaterial(data){
+    function localPlayerApplyMaterial(data){
 
         if ( !data.slot ) return;
         if ( !data.gender ) return;
