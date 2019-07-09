@@ -478,6 +478,13 @@
 
     }
 
+//  localPlayerSetOutfitMaterial.js (v1.0)
+
+    function localPlayerSetOutfitMaterial(data){
+
+        window[ data.gender ][ data.slot ].material = data.material;
+
+    }
 
 //  localPlayerMaterialHandler.js (v1.3)
 
