@@ -83,8 +83,8 @@
             var data = $("#snapshot-preview").attr("src").replace("data:image/jpeg;base64,", "");
             var name = options.name || Date.now().toString(36);
             var filename = name + ".jpg"
-            var title = options.title || "anywhere3d snapshot";
-            var description = options.description || "Avatar snapshot direct from http://anywhere3d.com #anywhere3d";
+            var title = options.title || "sloothes snapshot";
+            var description = options.description || "Avatar snapshot direct from https://sloothes.com #anywhere3d";
 
             return new Promise( function(resolve, reject){
 
