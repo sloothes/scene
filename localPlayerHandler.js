@@ -485,7 +485,6 @@
         if ( !data.slot ) return;
         if ( !data.gender ) return;
         if ( !data.material ) return;
-
         if ( !window[ data.gender ][ data.slot ] ) return;
 
         if ( "validator" in window ) {
@@ -493,12 +492,10 @@
             if ( !validator.isJSON(str) ) return;
         }
 
-        //  var slot = data.slot;
-        //  var gender = data.gender;
-        //  var material = materialfromJSON(data.material);
-        //  window[ gender ][ slot ].material = material;
-
-        window[ data.gender ][ data.slot ].material = materialfromJSON(data.material);
+        var material = materialfromJSON(data.material);
+        window[ data.gender ][ data.slot ].material = material;
+        
+        debugMode && console.log(material);
 
     }
 
