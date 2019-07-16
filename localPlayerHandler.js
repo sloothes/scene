@@ -492,10 +492,13 @@
             if ( !validator.isJSON(str) ) return;
         }
 
-        var material = materialfromJSON(data.material);
-        window[ data.gender ][ data.slot ].material = material;
+        var oldMaterial = window[data.gender][data.slot].material;
+        var newMaterial = materialfromJSON(data.material);
+        window[ data.gender ][ data.slot ].material = newMaterial;
         
-        debugMode && console.log(material);
+        oldMaterial.dispose(); // danger!
+
+        debugMode && console.log(newMaterial);
 
     }
 
