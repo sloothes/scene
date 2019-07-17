@@ -413,6 +413,7 @@
                 break;
 
                 case "/select/body":
+                    if ( !localPlayer.outfit.getGender() ) break;
                     remove("skeleton", "costume", "tshirt", "trousers", "dress", "shoes");
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
@@ -420,6 +421,7 @@
                 break;
 
                 case "/select/eyes":
+                    if ( !localPlayer.outfit.getGender() ) break;
                     remove("skeleton");
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
@@ -427,6 +429,7 @@
                 break;
 
                 case "/select/hairs":
+                    if ( !localPlayer.outfit.getGender() ) break;
                     remove("skeleton");
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
@@ -440,32 +443,38 @@
                 break;
 
                 case "/select/underwears":
+                    if ( !localPlayer.outfit.getGender() ) break;
                     remove("skeleton", "costume", "tshirt", "trousers", "dress");
                     if ( !localPlayer.outfit.underwears ) add("underwears");
                 break;
 
                 case "/select/costume":
+                    if ( !localPlayer.outfit.getGender() ) break;
                     remove("skeleton", "tshirt", "trousers", "dress");
                     if ( !localPlayer.outfit.costume ) add("costume");
                 break;
 
                 case "/select/tshirt":
+                    if ( !localPlayer.outfit.getGender() ) break;
                     remove("skeleton", "costume", "dress");
                     if ( !localPlayer.outfit.tshirt ) add("tshirt");
                 break;
 
                 case "/select/trousers":
+                    if ( !localPlayer.outfit.getGender() ) break;
                     remove("skeleton", "costume", "dress");
                     if ( !localPlayer.outfit.trousers ) add("trousers");
                 break;
 
                 case "/select/dress":
+                    if ( !localPlayer.outfit.getGender() ) break;
                     if ( !localPlayer.outfit.getGender("female") ) break;
                     remove("skeleton", "costume", "trousers", "tshirt");
                     if ( !localPlayer.outfit.dress ) add("dress");
                 break;
 
                 case "/select/shoes":
+                    if ( !localPlayer.outfit.getGender() ) break;
                     remove("skeleton");
                     if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
