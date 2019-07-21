@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="description" contents="Slutty Ladies Overplay Obedient Trying Have Epic Sex">
+
+    <title>scene-index (scc-v3.5)</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootbox-dialoges.css">
+    <link rel="stylesheet" href="/css/jquery.Jcrop.css">
+    <link rel="stylesheet" href="/scene/joystick.css">
+
+    <script src="/socketcluster.js"></script>
+    <script src="/sc-codec-min-bin.js"></script>
+
+    <script>
+
+        debugMode = true;
+
+        console.log({
+            "debug": debugMode,
+            "scc-version": socketCluster.version,
+            "scc-clients": socketCluster.clients,
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+<style>
+
+    body {
+        background-color: #b1c8e8;
+        margin: 0px;
+        overflow: hidden;
+    }
+
+    #scene-container {
+        height:100vh;
+    }
+
+    .middle > * {
+        margin:auto;
+        position:absolute;
+        top:0; bottom:0;
+        left:0; right:0;
+        height:fit-content;
+        width:fit-content;
+    }
+
+    #crop-button {
+        position:absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+
+    #exit-button {
+        position:absolute;
+        bottom: 0px;
+        left: 0px;
+    }
+
+</style>
+
+<div id="scene-container"></div>
+<div class="joystick-controls" id="joystick-controls-1"></div>
+<div class="joystick-controls" id="joystick-controls-2"></div>
+
+<script src="/js/w3.js"></script>
+<script src="/js/rawinflate.js"></script>
+<script src="/js/rawdeflate.js"></script>
+<script src="/js/store2.js"></script>
+<script src="/js/Objectid.js"></script>
+<script src="/js/zangodb.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/jquery.Jcrop.js"></script>
+<script src="/js/bootbox.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/DeviceDetector.js"></script>
+<script src="/js/MathDecimalAdjustment.js"></script>
+<script src="/js/watermark.js"></script>
+<script src="/js/validator.js"></script>
+<script src="/js/system.min.js"></script>
+<script src="/js/signals.min.js"></script>
+<script src="/js/command.js"></script>
+<script src="/AW3D_db/AW3D.db.js"></script>
+
+<script src="/three/three.js"></script>
+<script src="/three/EditorControls.js"></script>
+<script src="/three/Detector.js"></script>
+<script src="/three/Projector.js"></script>
+<script src="/three/Animation.js"></script>
+<script src="/three/AnimationHandler.js"></script>
+<script src="/three/KeyFrameAnimation.js"></script>
+<script src="/three/SubdivisionModifier.js"></script>
+<script src="/three/UVsDebug.js"></script>
+<script src="/three/shader.js"></script>
+
+<script src="/js/MW.js"></script>
+<script src="/js/MWtps.js"></script>
+<script src="/js/VirtualInput.js"></script>
+<script src="/js/scene-helpers.js"></script>
+<script src="/js/edges-helpers.js"></script>
+
+<script src="/scene/scene.js"></script>
+<script src="/scene/world.js"></script>
+
+<script src="/AW3D/AW3D-dev0.3.6.js"></script>
+<script src="/js/PlayerController.js"></script>
+<script src="/js/cameraControl.js"></script>
+<script src="/js/KeyInputControls.js"></script>
+<script src="/js/JoystickControls.js"></script>
+<script src="/js/jquery-update-engine.js"></script>
+<script src="/js/jquery-render-engine.js"></script>
+<script src="/js/runtime.js"></script>
+
+<script src="/scene/animationsLoader.js"></script>
+<script src="/scene/action-helpers.js"></script>
+<script src="/scene/snapshot-helpers.js"></script>
+<script src="/scene/sceneHandler.js"></script>
+<script src="/scene/localPlayerHandler.js"></script>
+<script src="/scene/skinnedMeshLoader.js"></script>
+
+<script>
+
+//  localPlayerOutfitHandler.js.
+
+    function localPlayerOutfitHandler(){}
+
+</script>
+
+<script>
+
+//  Socketcluster.
+
+    var socket = socketCluster.create({
+        port:8000,
+        hostname: "46.101.129.67",
+        codecEngine: scCodecMinBin
+    });
+
+    socket.on("connect", function(status){
+        debugMode && console.log({"scene socket status": status});
+
+    //  Create a channel for this scene.
+        mySceneChannel = socket.subscribe(`/scene/channel:${socket.id}`);
+        mySceneChannel.watch( sceneHandler );
+        debugMode && console.log({"mySceneChannel": mySceneChannel})
+
+    //  Create a channel for localPlayer.
+        mylocalPlayerChannel = socket.subscribe(`/local/player/channel:${socket.id}`);
+        mylocalPlayerChannel.watch( localPlayerHandler );
+        debugMode && console.log({"mylocalPlayerChannel": mylocalPlayerChannel});
+
+    //  Create a channel for outfit costumizing.
+        myOutfitChannel = socket.subscribe(`/local/player/outfit/channel:${socket.id}`);
+        myOutfitChannel.watch( localPlayerOutfitHandler );
+        debugMode && console.log({"myOutfitChannel": myOutfitChannel});
+
+    //  Create a channel for outfit materializing.
+        myMaterialChannel = socket.subscribe(`/local/player/outfit/material/channel:${socket.id}`);
+        myOutfitChannel.watch( localPlayerApplyMaterial );
+        debugMode && console.log({"myMaterialChannel": myMaterialChannel});
+
+    //  Parse to parent window dynamically as global properties.
+
+        if ( window.parent != window ) {
+            window.parent.SceneSocketId = this.id;
+            window.parent.SceneChannel = mySceneChannel.name;
+            window.parent.OutfitChannel = myOutfitChannel.name;
+            window.parent.localPlayerChannel = mylocalPlayerChannel.name;
+            window.parent.localPlayerMaterialChannel = myMaterialChannel.name;
+        }
+
+    });
+
+    socket.on("error", function (err) {
+        console.error( err.stack );
+    });
+
+    socket.on("authStateChange", function( state ){
+        debugMode && console.log({"scene authStateChange": state});
+    });
+
+    socket.on("subscribe", function( name, object ){
+        debugMode && console.log(`subscribed successfully to "${name}" channel:`, object);
+    });
+
+</script>
+
+
+<script>
+
+//  indexedDB helpers.js
+
+    function exportCollection( name ){
+
+    //  throws error if collection not exist!
+        db.collection( name );  // important!
+
+        db.collection(name).find()
+        .toArray(function(err, docs){
+            if (err) throw err;
+            if ( !docs.length )  
+                throw `collection ${name} is empty`;
+        }).then(function(docs){ 
+            return JSON.stringify(docs);
+        }).then(function(data){ 
+            debugMode && console.log( data );
+
+        //  Save to desktop.
+            var a = document.createElement("a");
+            var file = new Blob([data], {type: "text/json"});
+            a.href = URL.createObjectURL(file);
+            a.download = name + ".json";
+            a.click();
+
+            return a.href; // OK.
+
+        }).then(function(objectURL){
+            URL.revokeObjectURL(objectURL); // OK.
+
+        }).catch(function(err){
+            console.error(err);
+        });
+
+    }
+
+    function exportDatabase(db){
+
+        (async function(db){
+
+            if ( !db._open ) {
+                throw `Database ${db.name} is not open.`;
+            }
+
+            var json = {};
+
+            for ( var name in db._cols ){
+
+                await db.collection(name).find()
+                .toArray(function(err, docs){
+                    if (err) throw err;
+                }).then(function(docs){ 
+                    if ( !docs.length ) return;
+                    json[ name ] = docs;
+                    debugMode && console.log( `${name}:`, json[name] );
+                }).catch(function(err){
+                    console.error(err);
+                });
+
+            }
+
+            debugMode && console.log( "json:", json );
+
+            return JSON.stringify( json );
+
+        })(db).then(function(data){
+
+            debugMode && console.log(data);
+
+        //  Save to file.
+            var a = document.createElement("a");
+            var file = new Blob([data], {type: "text/json"});
+            a.href = URL.createObjectURL(file);
+            a.download = "database-export.json";
+            a.click();
+
+            return a.href;
+
+        }).then(function(objectURL){
+            URL.revokeObjectURL(objectURL);
+
+        }).catch(function(err){
+            console.error(err);
+        });
+
+    }
+
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+/*
+//  localPlayerOutfitHandler.js (demo).
+
+    function localPlayerOutfitHandler(){
+
+    //  debugMode && console.log( arguments );
+
+        for (var arg in arguments){
+
+            var data = arguments[arg];
+            debugMode && console.log({"data":data});
+
+            switch (data.kind) {
+
+                case "texture":
+
+                    var img = new Image();
+                    img.crossOrigin = "anonymous"; // very important!
+                    var link = `https://i.imgur.com/${data.id}.${data.ext}`;
+
+                    img.onload = function(){
+
+                        debugMode && console.log({
+                            "typeof data.outfit": typeof(data.outfit),
+                        });
+
+                        if ( typeof(data.outfit) == "object" ) {
+                            var oldTexture = localPlayer.outfit[ data.outfit[0] ].material[ data.type ];
+
+                            var texture = new THREE.Texture(img);
+                            texture.sourceFile = link;  // very important!
+
+                            localPlayer.outfit[ data.outfit[0] ].material[ data.type ] = texture;
+                            localPlayer.outfit[ data.outfit[0] ].material[ data.type ].needsUpdate = true;
+                            localPlayer.outfit[ data.outfit[0] ].material.needsUpdate = true;
+                        }
+
+                        if ( typeof(data.outfit) == "string" ) {
+                            var oldTexture = localPlayer.outfit[ data.outfit ].material[ data.type ];
+
+                            var texture = new THREE.Texture(img);
+                            texture.sourceFile = link; // very important!
+
+                            localPlayer.outfit[ data.outfit ].material[ data.type ] = texture;
+                            localPlayer.outfit[ data.outfit ].material[ data.type ].needsUpdate = true;
+                            localPlayer.outfit[ data.outfit ].material.needsUpdate = true;
+                        }
+
+                        if (oldTexture) oldTexture.dispose();
+                    };
+
+                    img.src = link;
+
+                break;
+
+            }
+
+        }
+
+    }
+*/
+</script>
+
