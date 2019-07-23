@@ -203,12 +203,10 @@
 
         return new Promise(function(resolve, reject){
 
-            var width  = 570; // 600;
-            var height = 570; // 600;
+            var width  = 420; // 375;
+            var height = 570; // 570;
 
             var options = {
-
-            //  aspectRatio: width / height,
 
                 setSelect: [
                     (renderer.domElement.width * 0.5)  - (width * 0.5),
@@ -219,6 +217,7 @@
 
             //  minSize: [width, height],
             //  maxSize: [width, height],
+            //  aspectRatio: width / height,
 
                 onChange: function(coords){},
                 onSelect: function(coords){},
