@@ -104,20 +104,24 @@
         var height = 570; // 570;
 
         var options = {
-            aspectRatio: width / height,
+
             setSelect: [
                 (renderer.domElement.width * 0.5)  - (width * 0.5),
                 (renderer.domElement.height * 0.5) - (height * 0.5),
                 (renderer.domElement.width * 0.5)  + (width * 0.5),
                 (renderer.domElement.height * 0.5) + (height * 0.5),
             ],
+
             minSize: [width, height],
             maxSize: [width, height],
+            aspectRatio: width / height,
+
             onChange: function(coords){},
             onSelect: function(coords){},
             onRelease: function(){
                 this.exit();
             },
+
         };
 
         $(renderer.domElement).Jcrop(options, function(){
@@ -203,30 +207,47 @@
 
         return new Promise(function(resolve, reject){
 
-            var width  = 420; // 375;
-            var height = 570; // 570;
+            if (isMobile) {
 
-            var options = {
+                var width  = $(window).width();
+                var height = $(window).height();
 
-                setSelect: [
-                    (renderer.domElement.width * 0.5)  - (width * 0.5),
-                    (renderer.domElement.height * 0.5) - (height * 0.5),
-                    (renderer.domElement.width * 0.5)  + (width * 0.5),
-                    (renderer.domElement.height * 0.5) + (height * 0.5),
-                ],
-
-            //  minSize: [width, height],
-            //  maxSize: [width, height],
-            //  aspectRatio: width / height,
-
-                onChange: function(coords){},
-                onSelect: function(coords){},
-                onRelease: function(){
+                var options = {};
+                options.setSelect = [ 0, 0, width, height ];
+                options.minSize = [ width, width ];
+                options.maxSize = [ width, height ];
+                options.onChange = function(coords){};
+                options.onSelect = function(coords){};
+                options.onRelease = function(){
                     this.exit();
-                },
+                };
 
-            };
+            } else {
 
+                var width  = 420; // 375;
+                var height = 570; // 570;
+
+                var options = {
+
+                    setSelect: [
+                        (renderer.domElement.width * 0.5)  - (width * 0.5),
+                        (renderer.domElement.height * 0.5) - (height * 0.5),
+                        (renderer.domElement.width * 0.5)  + (width * 0.5),
+                        (renderer.domElement.height * 0.5) + (height * 0.5),
+                    ],
+
+                //  minSize: [width, height],
+                //  maxSize: [width, height],
+                //  aspectRatio: width / height,
+
+                    onChange: function(coords){},
+                    onSelect: function(coords){},
+                    onRelease: function(){
+                        this.exit();
+                    },
+
+                };
+            }
 
             $(renderer.domElement).Jcrop(options, function(){
 
