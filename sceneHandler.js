@@ -16,7 +16,7 @@
 
             case "/product/crop":
 
-                productSnapshot();
+                return productSnapshot();
 
             break;
 
