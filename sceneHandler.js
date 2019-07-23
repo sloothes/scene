@@ -217,8 +217,9 @@
                     (renderer.domElement.height * 0.5) + (height * 0.5),
                 ],
 
-                minSize: [width, height],
-                maxSize: [width, height],
+            //  minSize: [width, height],
+            //  maxSize: [width, height],
+
                 onChange: function(coords){},
                 onSelect: function(coords){},
                 onRelease: function(){
