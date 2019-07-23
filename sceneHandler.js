@@ -208,7 +208,7 @@
 
             var options = {
 
-                aspectRatio: width / height,
+            //  aspectRatio: width / height,
 
                 setSelect: [
                     (renderer.domElement.width * 0.5)  - (width * 0.5),
