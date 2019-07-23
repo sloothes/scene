@@ -224,8 +224,8 @@
 
             } else {
 
-                var width  = 420; // 375;
-                var height = 570; // 570;
+                var width  = 480; // 375;
+                var height = 480; // 570;
 
                 var options = {
 
