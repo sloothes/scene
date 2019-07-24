@@ -428,6 +428,7 @@
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                     if ( !localPlayer.outfit.hairs ) add("hairs");
+                    if ( !localPlayer.outfit.underwears ) add("underwears");
                     if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
@@ -437,6 +438,7 @@
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                     if ( !localPlayer.outfit.hairs ) add("hairs");
+                    if ( !localPlayer.outfit.underwears ) add("underwears");
                     if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
@@ -447,6 +449,7 @@
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                     if ( !localPlayer.outfit.hairs ) add("hairs");
                     if ( !localPlayer.outfit.stockings ) add("stockings");
+                    if ( !localPlayer.outfit.underwears ) add("underwears");
                     if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
@@ -476,6 +479,7 @@
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                     if ( !localPlayer.outfit.hairs ) add("hairs");
+                    if ( !localPlayer.outfit.underwears ) add("underwears");
                     if ( !localPlayer.outfit.tshirt ) add("tshirt");
                     if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
@@ -486,6 +490,7 @@
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                     if ( !localPlayer.outfit.hairs ) add("hairs");
+                    if ( !localPlayer.outfit.underwears ) add("underwears");
                     if ( !localPlayer.outfit.trousers ) add("trousers");
                     if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
@@ -507,6 +512,7 @@
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                     if ( !localPlayer.outfit.hairs ) add("hairs");
+                    if ( !localPlayer.outfit.underwears ) add("underwears");
                     if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
