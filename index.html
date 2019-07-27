@@ -138,6 +138,8 @@
     socket.on("connect", function(status){
         debugMode && console.log({"scene socket status": status});
 
+        var channel_ID = "/channel:" + socket.id;
+
     //  Create a channel for this scene.
         sceneChannel = socket.subscribe(`/scene/channel:${socket.id}`);
         sceneChannel.watch( sceneHandler );
@@ -161,8 +163,9 @@
     //  Parse to parent window dynamically as global properties.
 
         if ( window.parent != window ) {
-        //  window.parent.sceneSccId = socket.id;
-            window.parent.sceneChannel = sceneChannel.name;
+            window.parent.localSceneSocket_ID = socket.id;
+            window.parent.localSceneChannel_ID = channel_ID;
+            window.parent.localSceneChannel = sceneChannel.name;
             window.parent.localPlayerChannel = playerChannel.name;
             window.parent.localPlayerOutfitChannel = outfitChannel.name;
             window.parent.localPlayerMaterialChannel = materialChannel.name;
