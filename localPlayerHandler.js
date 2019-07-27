@@ -524,6 +524,15 @@
 
     }
 
+//  localPlayerOutfitHandler.js (v0.1)
+
+    function localPlayerOutfitHandler(data){
+
+                    // TODO //
+
+    }
+
+
 //  localPlayerApplyMaterial.js (v1.0)
 
     function localPlayerApplyMaterial(data){
