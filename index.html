@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <meta name="description" contents="Slutty Ladies Observing Outgoing Trying Have Expressive Sex">
 
-    <title>(scene v3.7)</title>
+    <title>(scene scc v3.8)</title>
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootbox-dialoges.css">
@@ -18,6 +18,7 @@
 
     <script src="/socketcluster.js"></script>
     <script src="/sc-codec-min-bin.js"></script>
+    <script src="/js/loadjs.min.js"></script>
 
     <script>
 
@@ -120,10 +121,69 @@
 <script src="/scene/runtime.js"></script>
 <script src="/js/animationsLoader.js"></script>
 <script src="/scene/action-helpers.js"></script>
-<!-- script src="/scene/snapshot-helpers.js"></script -->
 <script src="/scene/sceneHandler.js"></script>
 <script src="/scene/localPlayerHandler.js"></script>
 <script src="/scene/skinnedMeshLoader.js"></script>
+
+<script>
+
+//  Socketcluster.
+
+    var socket = socketCluster.create({
+    //  port:443,
+        hostname: "anywhere3d.com",
+        codecEngine: scCodecMinBin,
+    });
+
+    socket.on("connect", function(status){
+        debugMode && console.log({"scene socket status": status});
+
+    //  Create a channel for this scene.
+        sceneChannel = socket.subscribe(`/scene/channel:${socket.id}`);
+        sceneChannel.watch( sceneHandler );
+        debugMode && console.log({"sceneChannel": sceneChannel});
+
+    //  Create a channel for localPlayer.
+        playerChannel = socket.subscribe(`/player/channel:${socket.id}`);
+        playerChannel.watch( localPlayerHandler );
+        debugMode && console.log({"playerChannel": playerChannel});
+
+    //  Create a channel for outfit costumizing.
+        outfitChannel = socket.subscribe(`/player/outfit/channel:${socket.id}`);
+        outfitChannel.watch( localPlayerOutfitHandler );
+        debugMode && console.log({"outfitChannel": outfitChannel});
+
+    //  Create a channel for outfit materializing.
+        materialChannel = socket.subscribe(`/player/outfit/material/channel:${socket.id}`);
+        materialChannel.watch( localPlayerApplyMaterial ); // --> localPlayerMaterialHandler.
+        debugMode && console.log({"materialChannel": materialChannel});
+
+    //  Parse to parent window dynamically as global properties.
+
+        if ( window.parent != window ) {
+        //  window.parent.sceneSocketId = socket.id;
+            window.parent.sceneChannel = sceneChannel.name;
+            window.parent.localPlayerChannel = playerChannel.name;
+            window.parent.localPlayerOutfitChannel = outfitChannel.name;
+            window.parent.localPlayerMaterialChannel = materialChannel.name;
+        }
+
+    });
+
+    socket.on("error", function (err) {
+        console.error( err.stack );
+    });
+
+    socket.on("authStateChange", function( state ){
+        debugMode && console.log({"scene authStateChange": state});
+    });
+
+    socket.on("subscribe", function( name, object ){
+        debugMode && console.log(`subscribed successfully to "${name}" channel:`, object);
+    });
+
+</script>
+
 
 </body>
 </html>
