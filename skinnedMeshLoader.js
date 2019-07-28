@@ -77,6 +77,6 @@ var male, female, skeleton;
     localPlayer.outfit.direction.visible = true;
 
 //  Hide loading bar.
-    bootbox.hideAll();
+    if (window.bootbox) window.bootbox.hideAll();
 
 })();
