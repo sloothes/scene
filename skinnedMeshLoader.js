@@ -7,8 +7,7 @@ var male, female, skeleton;
     localPlayerHandler("/turn/back");
 
 //  Disable outfit direction visible on startup.
-//  localPlayer.outfit.direction.visible = false;
-
+    localPlayer.outfit.direction.visible = false;  // danger!
 
 //  male.
 
@@ -76,5 +75,8 @@ var male, female, skeleton;
 
 //  Enable outfit direction visible.
     localPlayer.outfit.direction.visible = true;
+
+//  Hide loading bar.
+    bootbox.hideAll();
 
 })();
