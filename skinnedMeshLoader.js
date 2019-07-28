@@ -7,7 +7,7 @@ var male, female, skeleton;
     localPlayerHandler("/turn/back");
 
 //  Disable outfit direction visible on startup.
-    localPlayer.outfit.direction.visible = false;  // danger!
+//  localPlayer.outfit.direction.visible = false;
 
 //  male.
 
