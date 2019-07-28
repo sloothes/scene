@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/css/bootbox-dialoges.css">
     <link rel="stylesheet" href="/css/jquery.Jcrop.css">
     <link rel="stylesheet" href="/css/joystick.css">
+    <link rel="stylesheet" href="/css/meter.css">
 
     <script src="/socketcluster.js"></script>
     <script src="/sc-codec-min-bin.js"></script>
@@ -124,6 +125,21 @@
 <script src="/scene/sceneHandler.js"></script>
 <script src="/scene/localPlayerHandler.js"></script>
 <script src="/scene/skinnedMeshLoader.js"></script>
+
+
+<script>
+
+//  Loading bar.
+    bootbox.dialog({
+        message: `<div class="text-center meter">`
+        + `<span style="width:100%;">Loading...`
+        + `</span></div>`,
+        buttons: false,
+        closeButton: false,
+        className: "middle",
+    });
+
+</script>
 
 <script>
 
