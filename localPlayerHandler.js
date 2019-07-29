@@ -688,23 +688,23 @@
 
     function localPlayerTextureHandler(){
 
-        caches.open("textures").then(function(cache){
+        for (var arg in arguments) {
 
-            for (var arg in arguments) {
+            var data = arguments[arg];
 
-                var data = arguments[arg];
+            //  var slot = data.slot;
+            //  var maps = data.maps;     // array.
+            //  var json = data.texture;  // json.
+            //  var gender = data.gender;
 
-                //  var slot = data.slot;
-                //  var maps = data.maps;     // array.
-                //  var json = data.texture;  // json.
-                //  var gender = data.gender;
+            var material = window[ data.gender ][ data.slot ].material;
 
-                var material = window[ data.gender ][ data.slot ].material;
+            if ( data.maps.findIndex(function(item){ 
+                return item == "alphaMap"; }) > -1) {
+                material.transparent = true;
+            }
 
-                if ( data.maps.findIndex(function(item){ 
-                    return item == "alphaMap"; }) > -1) {
-                    material.transparent = true;
-                }
+            caches.open("textures").then(function(cache){
 
                 cache.match(data.texture.sourceFile)
                 .then(function(response){
@@ -729,8 +729,8 @@
                     console.error(err);
                 });
 
-            }
+            });
 
-        });
+        }
 
     }
