@@ -698,7 +698,6 @@
                 //  var maps = data.maps;     // array.
                 //  var json = data.texture;  // json.
                 //  var gender = data.gender;
-                //  var texture = textureFromJSON(data.texture);
 
                 var material = window[ data.gender ][ data.slot ].material;
 
