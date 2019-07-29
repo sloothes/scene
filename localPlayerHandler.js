@@ -533,7 +533,7 @@
     }
 
 
-//  localPlayerApplyMaterial.js (v1.0)
+//  localPlayerApplyMaterial.js (v1.0) --> localPlayerMaterialHandler.js
 
     function localPlayerApplyMaterial(data){
 
@@ -684,3 +684,48 @@
 
     }
 
+//  localPlayerTextureHandler.js (v1.0)
+
+    function localPlayerTextureHandler(){
+
+        for (var arg in arguments) {
+
+            var data = arguments[arg];
+
+            //  var slot = data.slot;
+            //  var maps = data.maps;    // array.
+            //  var json = data.texture;
+            //  var gender = data.gender;
+            //  var texture = textureFromJSON(data.texture);
+
+            var material = window[ data.gender ][ data.slot ].material;
+
+            caches.open("textures").then(function(cache){
+                cache.match(data.texture.sourceFile)
+                .then(function(response){
+                    return response.blob();
+                }).then(function(blob){
+
+                    data.maps.forEach(function(map){
+                        var img = new Image();
+                        var oldTexture = material[map];
+                        img.crossOrigin = "anonymous";
+                        $(img).on("load", function(){
+                            material[map] = new THREE.Texture(img);
+                            material[map].sourceFile = data.texture.sourceFile; // important!
+                            material[map].needsUpdate = material.needsUpdate = true;
+                            window.URL.revokeObjectURL(img.src);
+                            if (oldTexture) oldTexture.dispose();
+                            $(img).remove();
+                        }).attr({src: window.URL.createObjectURL(blob)});
+                    });
+
+                }).catch(function(err){
+                    console.error(err);
+                });
+
+            });
+
+        }
+
+    }
