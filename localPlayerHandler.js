@@ -705,8 +705,6 @@
                 if ( data.maps.findIndex(function(item){ 
                     return item == "alphaMap"; }) > -1) {
                     material.transparent = true;
-                } else {
-                    material.transparent = false;
                 }
 
                 cache.match(data.texture.sourceFile)
