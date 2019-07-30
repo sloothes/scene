@@ -698,12 +698,12 @@
             //  var gender = data.gender;
 
             var material = window[ data.gender ][ data.slot ].material;
-
+        /*
             if ( data.maps.findIndex(function(item){ 
                 return item == "alphaMap"; }) > -1) {
                 material.transparent = true;
             }
-
+        */
             caches.open("textures").then(function(cache){
 
                 cache.match(data.texture.sourceFile)
@@ -734,3 +734,30 @@
         }
 
     }
+
+//  localPlayerTextureRemoveHandler.js (v1.0)
+
+    function localPlayerTextureRemoveHandler(){
+
+        for (var arg in arguments) {
+
+            var data = arguments[arg];
+
+            //  var map = data.map;
+            //  var slot = data.slot;
+            //  var gender = data.gender;
+
+            var material = window[ data.gender ][ data.slot ].material;
+
+            var oldTexture = material[ data.map ];
+
+            material[ data.map ] = null;
+            material.needsUpdate = true;
+
+            if (oldTexture) oldTexture.dispose();
+
+        }
+
+    }
+
+
