@@ -750,6 +750,8 @@
 
             var material = window[ data.gender ][ data.slot ].material;
 
+            if (material[ data.map ] == null) return;
+
             var oldTexture = material[ data.map ];
 
             material[ data.map ] = null;
