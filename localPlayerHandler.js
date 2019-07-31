@@ -438,33 +438,43 @@
 
                 case "/select/body":
                     if ( !localPlayer.outfit.body ) add("body");
+                break;
 
                 case "/select/eyes":
                     if ( !localPlayer.outfit.eyes ) add("eyes");
+                break;
 
                 case "/select/hairs":
                     if ( !localPlayer.outfit.hairs ) add("hairs");
+                break;
 
                 case "/select/stockings":
                     if ( !localPlayer.outfit.stockings ) add("stockings");
+                break;
 
                 case "/select/underwears":
                     if ( !localPlayer.outfit.underwears ) add("underwears");
+                break;
 
                 case "/select/costume":
                     if ( !localPlayer.outfit.costume ) add("costume");
+                break;
 
                 case "/select/tshirt":
                     if ( !localPlayer.outfit.tshirt ) add("tshirt");
+                break;
 
                 case "/select/trousers":
                     if ( !localPlayer.outfit.trousers ) add("trousers");
+                break;
 
                 case "/select/dress":
                     if ( !localPlayer.outfit.dress ) add("dress");
+                break;
 
                 case "/select/shoes":
                     if ( !localPlayer.outfit.shoes ) add("shoes");
+                break;
 
                 default:
                     if ( !localPlayer.outfit.getGender() ) break;
