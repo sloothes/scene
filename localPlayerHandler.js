@@ -412,7 +412,7 @@
                     localPlayer.outfit.add({skeleton:skeleton});
                 break;
 
-                case default:
+                default:
                     if ( !localPlayer.outfit.getGender() ) break;
                     remove("skeleton");
                     if ( !localPlayer.outfit.body ) add("body");
