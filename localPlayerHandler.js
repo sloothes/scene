@@ -1,4 +1,4 @@
-//  localPlayerHandler.js (v3.4)
+//  localPlayerHandler.js (v3.5)
 // hot "add/remove" from AW3D v0.3.7 and later.
 
     function localPlayerHandler(){
@@ -412,107 +412,46 @@
                     localPlayer.outfit.add({skeleton:skeleton});
                 break;
 
+                case default:
+                    if ( !localPlayer.outfit.getGender() ) break;
+                    remove("skeleton");
+                    if ( !localPlayer.outfit.body ) add("body");
+                    if ( !localPlayer.outfit.eyes ) add("eyes");
+                    if ( !localPlayer.outfit.hairs ) add("hairs");
+                    if ( !localPlayer.outfit.underwears ) add("underwears");
+                    if ( !localPlayer.outfit.shoes ) add("shoes");
+
                 case "/select/body":
-                    if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton", "costume", "tshirt", "trousers", "dress");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
-                    if ( !localPlayer.outfit.shoes ) add("shoes");
-
-                break;
-
                 case "/select/eyes":
-                    if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
-                    if ( !localPlayer.outfit.underwears ) add("underwears");
-                    if ( !localPlayer.outfit.shoes ) add("shoes");
-                break;
-
                 case "/select/hairs":
-                    if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
-                    if ( !localPlayer.outfit.underwears ) add("underwears");
-                    if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
                 case "/select/stockings":
-                    if ( !localPlayer.outfit.getGender("female") ) break;
-                    remove("skeleton", "costume", "trousers");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
                     if ( !localPlayer.outfit.stockings ) add("stockings");
-                    if ( !localPlayer.outfit.underwears ) add("underwears");
-                    if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
                 case "/select/underwears":
-                    if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton", "costume", "tshirt", "trousers", "dress");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
                     if ( !localPlayer.outfit.underwears ) add("underwears");
-                    if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
                 case "/select/costume":
-                    if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton", "tshirt", "trousers", "dress");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
                     if ( !localPlayer.outfit.costume ) add("costume");
-                    if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
                 case "/select/tshirt":
-                    if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton", "costume", "dress");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
-                    if ( !localPlayer.outfit.underwears ) add("underwears");
                     if ( !localPlayer.outfit.tshirt ) add("tshirt");
-                    if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
                 case "/select/trousers":
-                    if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton", "costume", "dress");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
-                    if ( !localPlayer.outfit.underwears ) add("underwears");
                     if ( !localPlayer.outfit.trousers ) add("trousers");
-                    if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
                 case "/select/dress":
-                    if ( !localPlayer.outfit.getGender() ) break;
                     if ( !localPlayer.outfit.getGender("female") ) break;
-                    remove("skeleton", "costume", "trousers", "tshirt");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
                     if ( !localPlayer.outfit.dress ) add("dress");
-                    if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
                 case "/select/shoes":
-                    if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton");
-                    if ( !localPlayer.outfit.body ) add("body");
-                    if ( !localPlayer.outfit.eyes ) add("eyes");
-                    if ( !localPlayer.outfit.hairs ) add("hairs");
-                    if ( !localPlayer.outfit.underwears ) add("underwears");
                     if ( !localPlayer.outfit.shoes ) add("shoes");
                 break;
 
