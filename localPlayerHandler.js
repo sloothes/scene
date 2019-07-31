@@ -460,7 +460,7 @@
 
                 case "/select/costume":
                     if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton");
+                    remove("skeleton", "dress");
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                     if ( !localPlayer.outfit.hairs ) add("hairs");
@@ -487,7 +487,7 @@
 
                 case "/select/dress":
                     if ( !localPlayer.outfit.getGender() ) break;
-                    remove("skeleton");
+                    remove("skeleton", "costume");
                     if ( !localPlayer.outfit.body ) add("body");
                     if ( !localPlayer.outfit.eyes ) add("eyes");
                     if ( !localPlayer.outfit.hairs ) add("hairs");
