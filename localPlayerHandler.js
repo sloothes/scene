@@ -724,7 +724,7 @@
                     return response.blob();
 
                 }).then(function(blob){
-                    if (!response) throw "none blob returned from response.";
+                    if (!blob) throw "none blob returned from response.";
 
                     data.maps.forEach(function(map){
                         var img = new Image();
