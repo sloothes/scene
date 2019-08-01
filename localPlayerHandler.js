@@ -717,7 +717,7 @@
                         return request.url = data.texture.sourceFile;
                     }) == undefined ) throw "cache request not found.";
                 }).catch(function(err){
-                    console.error(err);
+                    console.error(err); throw err;
                 });
 
                 cache.match(data.texture.sourceFile)
@@ -743,7 +743,7 @@
                     });
 
                 }).catch(function(err){
-                    console.error(err);
+                    console.error(err); throw err;
                 });
 
             }).catch(function(err){
