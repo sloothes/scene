@@ -706,10 +706,10 @@
 
                 cache.match(data.texture.sourceFile)
                 .then(function(response){
+                    if (!response) throw "no response from cache.";
                     return response.blob();
                 }).then(function(blob){
-
-                    if (!blob) throw "texture not found in cache.";
+                    if (!response) throw "no blob from response.";
 
                     data.maps.forEach(function(map){
                         var img = new Image();
