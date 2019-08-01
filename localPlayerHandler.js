@@ -707,13 +707,10 @@
 
                 if ( !data.slot ) throw "data slot is null.";
                 if ( !data.gender ) throw "data gender is null.";
-
-                if (!window[data.gender][data.slot]) throw "outfit not found.";
+                if ( !data.texture.sourceFile ) throw "data sourceFile is null";
+                if ( !window[data.gender][data.slot] ) throw "outfit not found.";
 
                 var material = window[ data.gender ][ data.slot ].material;
-
-                if ( !data.texture ) throw "data texture is null";
-                if ( !data.texture.sourceFile ) throw "texture sourceFile is null";
 
                 cache.keys().then(function(requests){
                     if ( requests.find(function(request){
