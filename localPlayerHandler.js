@@ -733,13 +733,12 @@
                         var oldTexture = material[map];
                         img.crossOrigin = "anonymous";
                         $(img).on("load", function(){
-                            material[map] = null; // debuging!
+                            material[map] = null; // important!
                             material[map] = new THREE.Texture(img);
                             material[map].sourceFile = data.texture.sourceFile; // important!
                             material[map].needsUpdate = material.needsUpdate = true;
                             window.URL.revokeObjectURL(img.src);
-                            debugMode && console.log(oldTexture);  // debuging!
-                            if (oldTexture) oldTexture.dispose();
+                            if (oldTexture) oldTexture.dispose(); // important!
                             $(img).remove();
                         }).attr({src: window.URL.createObjectURL(blob)});
                     });
@@ -775,8 +774,8 @@
 
             var oldTexture = material[ data.map ];
 
-            material[ data.map ] = null;
-            material.needsUpdate = true;
+            material[ data.map ] = null; // important!
+            material.needsUpdate = true; // important!
 
             if (oldTexture) oldTexture.dispose();
 
