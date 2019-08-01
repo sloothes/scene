@@ -692,6 +692,8 @@
             //  var maps = data.maps;     // array.
             //  var json = data.texture;  // json.
             //  var gender = data.gender;
+            
+            if (!window[ data.gender ][ data.slot ]) return;
 
             var material = window[ data.gender ][ data.slot ].material;
         /*
@@ -706,6 +708,8 @@
                 .then(function(response){
                     return response.blob();
                 }).then(function(blob){
+
+                    if (!blob) throw "texture not found in cache.";
 
                     data.maps.forEach(function(map){
                         var img = new Image();
