@@ -715,16 +715,16 @@
                 cache.keys().then(function(requests){
                     if ( requests.find(function(request){
                         return request.url = data.texture.sourceFile;
-                    }) == undefined ) throw "source file not found.";
+                    }) == undefined ) throw "cache request not found.";
                 });
 
                 cache.match(data.texture.sourceFile)
                 .then(function(response){
-                    if (!response) throw "no response returned from cache.";
+                    if (!response) throw "none response returned from cache.";
                     return response.blob();
 
                 }).then(function(blob){
-                    if (!response) throw "no blob returned from response.";
+                    if (!response) throw "none blob returned from response.";
 
                     data.maps.forEach(function(map){
                         var img = new Image();
