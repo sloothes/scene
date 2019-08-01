@@ -705,9 +705,9 @@
 
             caches.open("textures").then(function(cache){
 
-                if ( !data.slot ) throw "data slot is null.";
-                if ( !data.gender ) throw "data gender is null.";
-                //if ( !data.texture.sourceFile ) throw "data sourceFile is null";
+                if ( !data.slot ) throw "null data slot.";
+                if ( !data.gender ) throw "null data gender.";
+                if ( !data.texture.sourceFile ) throw "null data sourceFile";
                 if ( !window[data.gender][data.slot] ) throw "outfit not found.";
 
                 var material = window[ data.gender ][ data.slot ].material;
@@ -717,16 +717,16 @@
                         return request.url = data.texture.sourceFile;
                     }) == undefined ) throw "cache request not found.";
                 }).catch(function(err){
-                    console.error(err); throw err;
+                    console.error(err);
                 });
 
                 cache.match(data.texture.sourceFile)
                 .then(function(response){
-                    if (!response) throw "none response returned from cache.";
+                    if (!response) throw "null response returned from cache.";
                     return response.blob();
 
                 }).then(function(blob){
-                    if (!blob) throw "none blob returned from response.";
+                    if (!blob) throw "null blob returned from response.";
 
                     data.maps.forEach(function(map){
                         var img = new Image();
@@ -743,7 +743,7 @@
                     });
 
                 }).catch(function(err){
-                    console.error(err); throw err;
+                    console.error(err);
                 });
 
             }).catch(function(err){
