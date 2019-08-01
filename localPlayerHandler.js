@@ -692,24 +692,42 @@
             //  var maps = data.maps;     // array.
             //  var json = data.texture;  // json.
             //  var gender = data.gender;
-            
-            if (!window[ data.gender ][ data.slot ]) return;
 
-            var material = window[ data.gender ][ data.slot ].material;
+        //  if (!window[ data.gender ][ data.slot ]) return;
+        //  var material = window[ data.gender ][ data.slot ].material;
+
         /*
             if ( data.maps.findIndex(function(item){ 
                 return item == "alphaMap"; }) > -1) {
                 material.transparent = true;
             }
         */
+
             caches.open("textures").then(function(cache){
+
+                if ( !data.slot ) throw "data slot is null.";
+                if ( !data.gender ) throw "data gender is null.";
+
+                if (!window[data.gender][data.slot]) throw "outfit not found.";
+
+                var material = window[ data.gender ][ data.slot ].material;
+
+                if ( !data.texture ) throw "data texture is null";
+                if ( !data.texture.sourceFile ) throw "texture sourceFile is null";
+
+                cache.keys().then(function(requests){
+                    if ( requests.find(function(request){
+                        return request.url = data.texture.sourceFile;
+                    }) == undefined ) throw "source file not found.";
+                });
 
                 cache.match(data.texture.sourceFile)
                 .then(function(response){
-                    if (!response) throw "no response from cache.";
+                    if (!response) throw "no response returned from cache.";
                     return response.blob();
+
                 }).then(function(blob){
-                    if (!response) throw "no blob from response.";
+                    if (!response) throw "no blob returned from response.";
 
                     data.maps.forEach(function(map){
                         var img = new Image();
