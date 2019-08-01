@@ -707,7 +707,7 @@
 
                 if ( !data.slot ) throw "null data slot.";
                 if ( !data.gender ) throw "null data gender.";
-                if ( !data.texture.sourceFile ) throw "null data sourceFile";
+                if ( !data.texture.sourceFile ) throw "null data sourceFile.";
                 if ( !window[data.gender][data.slot] ) throw "outfit not found.";
 
                 var material = window[ data.gender ][ data.slot ].material;
