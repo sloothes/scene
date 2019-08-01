@@ -716,6 +716,8 @@
                     if ( requests.find(function(request){
                         return request.url = data.texture.sourceFile;
                     }) == undefined ) throw "cache request not found.";
+                }).catch(function(err){
+                    console.error(err);
                 });
 
                 cache.match(data.texture.sourceFile)
