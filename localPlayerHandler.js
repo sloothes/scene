@@ -746,6 +746,8 @@
                     console.error(err);
                 });
 
+            }).catch(function(err){
+                console.error(err);
             });
 
         }
