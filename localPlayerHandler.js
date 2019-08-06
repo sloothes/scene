@@ -558,7 +558,7 @@
                 oldMaterial[ key ] = null;
             });
 
-            this[ name ].material.dispose();
+            oldMaterial.dispose();
 
         } else if (oldMaterial.materials && oldMaterial.materials.length) {
 
@@ -573,7 +573,7 @@
                     material[ key ] = null;
                 });
 
-                oldMaterial.dispose();
+                material.dispose();
 
             });
 
