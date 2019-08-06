@@ -769,7 +769,6 @@
 
                     var img = new Image();
                     img.crossOrigin = "anonymous";  // important!
-
                     $(img).on("load", function(){
                         var texture = new THREE.Texture(img);
                         texture.sourceFile = data.texture.sourceFile; // important!
@@ -785,23 +784,6 @@
                         $(img).remove();
                     }).attr({src: window.URL.createObjectURL(blob)});
 
-                /*
-                    data.maps.forEach(function(map){
-                        var img = new Image();
-                        var oldTexture = material[map];
-                        img.crossOrigin = "anonymous";
-                        $(img).on("load", function(){
-                            material[map] = null; // important!
-                            material[map] = new THREE.Texture(img);
-                            material[map].sourceFile = data.texture.sourceFile; // important!
-                            material[map].needsUpdate = material.needsUpdate = true;
-                            window.URL.revokeObjectURL(img.src);
-                            if (oldTexture) oldTexture.dispose(); // important!
-                            $(img).remove();
-                        }).attr({src: window.URL.createObjectURL(blob)});
-                    });
-                */
-
                 }).catch(function(err){
                     console.error(err);
                 });
@@ -814,6 +796,22 @@
 
     }
 
+/*
+    data.maps.forEach(function(map){
+        var img = new Image();
+        var oldTexture = material[map];
+        img.crossOrigin = "anonymous";
+        $(img).on("load", function(){
+            material[map] = null; // important!
+            material[map] = new THREE.Texture(img);
+            material[map].sourceFile = data.texture.sourceFile; // important!
+            material[map].needsUpdate = material.needsUpdate = true;
+            window.URL.revokeObjectURL(img.src);
+            if (oldTexture) oldTexture.dispose(); // important!
+            $(img).remove();
+        }).attr({src: window.URL.createObjectURL(blob)});
+    });
+*/
 
 //  localPlayerTextureRemoveHandler.js (v1.0)
 
