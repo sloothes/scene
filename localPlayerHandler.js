@@ -833,8 +833,11 @@
             material[ data.map ] = null; // important!
             material.needsUpdate = true; // important!
 
-            //  var oldTexture = material[ data.map ];
-            //  if (oldTexture) oldTexture.dispose();
+        //  Notify removal.
+            if ( window.parent !== window && material[ data.map ] == null) {
+                var msg = `${data.gender} ${data.slot} ${data.map} removed.`;
+                window.parent.userNotificationDialogMessage( msg );
+            }
 
         }
 
