@@ -809,7 +809,7 @@
 
             var material = window[ data.gender ][ data.slot ].material;
 
-            if (material[ data.map ] == null) return;
+            if (material[ data.map ] == null) continue;  // important! (DO NOT USE "return")
 
             var oldTexture = material[ data.map ];
 
