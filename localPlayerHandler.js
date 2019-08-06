@@ -767,6 +767,25 @@
                 }).then(function(blob){
                     if (!blob) throw "null blob returned from response.";
 
+                    var img = new Image();
+                    img.crossOrigin = "anonymous";  // important!
+
+                    $(img).on("load", function(){
+                        var texture = new THREE.Texture(img);
+                        texture.sourceFile = data.texture.sourceFile; // important!
+                        data.maps.forEach(function(map){
+                            var oldTexture = material[map];
+                            material[map] = null; // important!
+                            material[map] = texture;
+                            material[map].needsUpdate = true;
+                            if (oldTexture) oldTexture.dispose(); // important!
+                        });
+                        material.needsUpdate = true;
+                        window.URL.revokeObjectURL(img.src);
+                        $(img).remove();
+                    }).attr({src: window.URL.createObjectURL(blob)});
+
+                /*
                     data.maps.forEach(function(map){
                         var img = new Image();
                         var oldTexture = material[map];
@@ -781,6 +800,7 @@
                             $(img).remove();
                         }).attr({src: window.URL.createObjectURL(blob)});
                     });
+                */
 
                 }).catch(function(err){
                     console.error(err);
