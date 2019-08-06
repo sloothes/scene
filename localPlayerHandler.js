@@ -543,7 +543,46 @@
             if ( !validator.isJSON(str) ) return;
         }
 
+    //  Dispose old material textures.
+
+        var oldMaterial = window[ data.gender ][ data.slot ].material;
+
+        if (oldMaterial && !oldMaterial.materials) {
+
+            //  Single material.
+
+            Object.keys(oldMaterial).filter( function(key){
+                return oldMaterial[ key ] instanceof THREE.Texture;
+            }).forEach( (key) => {
+                oldMaterial[ key ].dispose();
+                oldMaterial[ key ] = null;
+            });
+
+            this[ name ].material.dispose();
+
+        } else if (oldMaterial.materials && oldMaterial.materials.length) {
+
+            //  Multimaterial.
+
+            oldMaterial.materials.forEach(function(material){
+
+                Object.keys(material).filter(function(key){
+                    return material[ key ] instanceof THREE.Texture;
+                }).forEach(function(key){
+                    material[ key ].dispose();
+                    material[ key ] = null;
+                });
+
+                oldMaterial.dispose();
+
+            });
+
+        }
+
+    //  New material.
+
         var material = materialfromJSON(data.material);
+
         window[ data.gender ][ data.slot ].material = material;
         
         debugMode && console.log(material);
