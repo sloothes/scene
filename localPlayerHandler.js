@@ -811,12 +811,12 @@
 
             if (material[ data.map ] == null) continue;  // important! (DO NOT USE "return")
 
-            var oldTexture = material[ data.map ];
-
+            material[ data.map ].dispose();
             material[ data.map ] = null; // important!
             material.needsUpdate = true; // important!
 
-            if (oldTexture) oldTexture.dispose();
+            //  var oldTexture = material[ data.map ];
+            //  if (oldTexture) oldTexture.dispose();
 
         }
 
