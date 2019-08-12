@@ -553,9 +553,9 @@
 
             Object.keys(oldMaterial).filter( function(key){
                 return oldMaterial[ key ] instanceof THREE.Texture;
-            }).forEach( (key) => {
+            }).forEach(function(key){
                 oldMaterial[ key ].dispose();
-                oldMaterial[ key ] = null;
+            //  oldMaterial[ key ] = null; // DO NOT DELETE/NULL.
             });
 
             oldMaterial.dispose();
@@ -570,7 +570,7 @@
                     return material[ key ] instanceof THREE.Texture;
                 }).forEach(function(key){
                     material[ key ].dispose();
-                    material[ key ] = null;
+                //  material[ key ] = null; // DO NOT DELETE/NULL.
                 });
 
                 material.dispose();
@@ -589,13 +589,22 @@
 
     }
 
-//  localPlayerMaterialHandler.js (v1.3)
+//  localPlayerMaterialHandler.js (v1.3.1)
 
     function localPlayerMaterialHandler(){
 
         for (var arg in arguments) {
 
             var data = arguments[arg];
+
+        //  Create and apply new material.
+
+            if (data.material) {
+                localPlayerApplyMaterial(data);
+                continue;
+            }
+
+        //  Apply material property value.
 
             //  var key = data.key;
             //  var slot = data.slot;
