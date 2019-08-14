@@ -1,21 +1,25 @@
-//  skinnedMeshLoader.js (v6.2)
+//  skinnedMeshLoader.js (v6.3)
 
 var male, female, skeleton;
 
-(async function(){
+new Promise(function(resolve, reject){
 
     localPlayerHandler("/turn/back");
 
 //  Disable outfit direction visible on startup.
 //  localPlayer.outfit.direction.visible = false;
 
+    resolve();
+
+}).then(function(){
+
 //  male.
 
-    var mson = {};
-    male = await db.collection("male")
+    var json = {};
+    return db.collection("male")
     .find().forEach(
         function(doc){
-            mson[doc._id] = doc;
+            json[doc._id] = doc;
         }, 
         function(err){
             if (err) throw err;
@@ -23,20 +27,23 @@ var male, female, skeleton;
     ).catch(function(err){
         console.error(err);
     }).then(function(){
-        return localPlayer.outfit.fromJSON(mson);
+        return localPlayer.outfit.fromJSON(json);
     }).then(function(outfit){
-        return outfit;
+        male = outfit;
+        debugMode && console.log({"male":male});
+        return;
     });
-    debugMode && console.log({"male":male});
 
+
+}).then(function(){
 
 //  female.
 
-    var fson = {};
-    female = await db.collection("female")
+    var json = {};
+    return db.collection("female")
     .find().forEach(
         function(doc){
-            fson[doc._id] = doc;
+            json[doc._id] = doc;
         }, 
         function(err){
             if (err) throw err;
@@ -44,16 +51,19 @@ var male, female, skeleton;
     ).catch(function(err){
         console.error(err);
     }).then(function(){
-        return localPlayer.outfit.fromJSON(fson);
+        return localPlayer.outfit.fromJSON(json);
     }).then(function(outfit){
-        return outfit;
+        female = outfit;
+        debugMode && console.log({"female":female});
+        return;
     });
-    debugMode && console.log({"female":female});
 
+
+}).then(function(){
 
 //  skeleton.
 
-    skeleton = await db.collection("skeleton")
+    return db.collection("skeleton")
     .findOne({_id:"body"}, function(err){
         if (err) throw err;
     }).then(function(doc){
@@ -63,10 +73,13 @@ var male, female, skeleton;
     }).then(function(doc){
         return localPlayer.outfit.fromJSON({skeleton:doc});
     }).then(function(outfit){
-         return outfit.skeleton;
+        skeleton = outfit.skeleton;
+        debugMode && console.log({"skeleton":skeleton});
+        return;
     });
-    debugMode && console.log({"skeleton":skeleton});
 
+
+}).then(function(){
 
 //  Startup.
 
@@ -79,4 +92,6 @@ var male, female, skeleton;
 //  Hide loading bar.
     if (window.bootbox) window.bootbox.hideAll();
 
-})();
+}).catch(function(err){
+    console.error(err);
+});
