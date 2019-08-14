@@ -1,25 +1,20 @@
 //  skinnedMeshLoader.js (v6.3)
 
-var male, female, skeleton;
-
-new Promise(function(resolve, reject){
+    var male, female, skeleton;
 
     localPlayerHandler("/turn/back");
 
 //  Disable outfit direction visible on startup.
 //  localPlayer.outfit.direction.visible = false;
 
-    resolve();
 
-}).then(function(){
+Promise.all([
 
 //  male.
 
-    var json = {};
-    return db.collection("male")
-    .find().forEach(
+    db.collection("male").find().forEach(
         function(doc){
-            json[doc._id] = doc;
+            male[doc._id] = doc;
         }, 
         function(err){
             if (err) throw err;
@@ -27,23 +22,17 @@ new Promise(function(resolve, reject){
     ).catch(function(err){
         console.error(err);
     }).then(function(){
-        return localPlayer.outfit.fromJSON(json);
+        return localPlayer.outfit.fromJSON(male);
     }).then(function(outfit){
         male = outfit;
         debugMode && console.log({"male":male});
-        return;
-    });
-
-
-}).then(function(){
+    }),
 
 //  female.
 
-    var json = {};
-    return db.collection("female")
-    .find().forEach(
+    db.collection("female").find().forEach(
         function(doc){
-            json[doc._id] = doc;
+            female[doc._id] = doc;
         }, 
         function(err){
             if (err) throw err;
@@ -51,19 +40,15 @@ new Promise(function(resolve, reject){
     ).catch(function(err){
         console.error(err);
     }).then(function(){
-        return localPlayer.outfit.fromJSON(json);
+        return localPlayer.outfit.fromJSON(female);
     }).then(function(outfit){
         female = outfit;
         debugMode && console.log({"female":female});
-        return;
-    });
-
-
-}).then(function(){
+    }),
 
 //  skeleton.
 
-    return db.collection("skeleton")
+    db.collection("skeleton")
     .findOne({_id:"body"}, function(err){
         if (err) throw err;
     }).then(function(doc){
@@ -75,11 +60,9 @@ new Promise(function(resolve, reject){
     }).then(function(outfit){
         skeleton = outfit.skeleton;
         debugMode && console.log({"skeleton":skeleton});
-        return;
-    });
+    }),
 
-
-}).then(function(){
+]).then(function(){
 
 //  Startup.
 
