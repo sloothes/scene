@@ -1,7 +1,7 @@
 //  skinnedMeshLoader.js (v6.3)
 
-    var male = {};
-    var female = {};
+    var male, m = {};
+    var female, f = {};
     var skeleton;
 
     localPlayerHandler("/turn/back");
@@ -16,7 +16,7 @@ Promise.all([
 
     db.collection("male").find().forEach(
         function(doc){
-            male[doc._id] = doc;
+            m[doc._id] = doc;
         }, 
         function(err){
             if (err) throw err;
@@ -24,7 +24,7 @@ Promise.all([
     ).catch(function(err){
         console.error(err);
     }).then(function(){
-        return localPlayer.outfit.fromJSON(male);
+        return localPlayer.outfit.fromJSON(m);
     }).then(function(outfit){
         male = outfit;
         debugMode && console.log({"male":male});
@@ -34,7 +34,7 @@ Promise.all([
 
     db.collection("female").find().forEach(
         function(doc){
-            female[doc._id] = doc;
+            f[doc._id] = doc;
         }, 
         function(err){
             if (err) throw err;
@@ -42,7 +42,7 @@ Promise.all([
     ).catch(function(err){
         console.error(err);
     }).then(function(){
-        return localPlayer.outfit.fromJSON(female);
+        return localPlayer.outfit.fromJSON(f);
     }).then(function(outfit){
         female = outfit;
         debugMode && console.log({"female":female});
@@ -79,4 +79,7 @@ Promise.all([
 
 }).catch(function(err){
     console.error(err);
+}).then(function(){
+    delete m;
+    delete f;
 });
