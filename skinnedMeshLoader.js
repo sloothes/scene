@@ -1,25 +1,21 @@
 //  skinnedMeshLoader.js (v6.3)
 
-    var male;
-    var female;
-    var skeleton;
+    var male, female, skeleton;
 
     localPlayerHandler("/turn/back");
-
 //  Disable outfit direction visible on startup.
 //  localPlayer.outfit.direction.visible = false;
 
 (function(){
 
-    var mjson = {}, fjson = {};
-
     Promise.resolve().then(function(){
 
     //  male.
 
+        var json = {};
         return db.collection("male").find().forEach(
             function(doc){
-                mjson[doc._id] = doc;
+                json[doc._id] = doc;
             }, 
             function(err){
                 if (err) throw err;
@@ -27,7 +23,7 @@
         ).catch(function(err){
             console.error(err);
         }).then(function(){
-            return localPlayer.outfit.fromJSON(mjson);
+            return localPlayer.outfit.fromJSON(json);
         }).then(function(outfit){
             male = outfit;
             debugMode && console.log({"male":male});
@@ -38,9 +34,10 @@
 
     //  female.
 
+        var json = {};
         return db.collection("female").find().forEach(
             function(doc){
-                fjson[doc._id] = doc;
+                json[doc._id] = doc;
             }, 
             function(err){
                 if (err) throw err;
@@ -48,7 +45,7 @@
         ).catch(function(err){
             console.error(err);
         }).then(function(){
-            return localPlayer.outfit.fromJSON(fjson);
+            return localPlayer.outfit.fromJSON(json);
         }).then(function(outfit){
             female = outfit;
             debugMode && console.log({"female":female});
@@ -67,7 +64,7 @@
         }).catch(function(err){
             console.error(err);
         }).then(function(doc){
-            return localPlayer.outfit.fromJSON({skeleton:doc});
+            return localPlayer.outfit.fromJSON({"skeleton":doc});
         }).then(function(outfit){
             skeleton = outfit.skeleton;
             debugMode && console.log({"skeleton":skeleton});
