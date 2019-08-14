@@ -13,11 +13,11 @@
 
     var mjson = {}, fjson = {};
 
-    Promise.all([
+    Promise.resolve().then(function(){
 
     //  male.
 
-        db.collection("male").find().forEach(
+        return db.collection("male").find().forEach(
             function(doc){
                 mjson[doc._id] = doc;
             }, 
@@ -31,11 +31,14 @@
         }).then(function(outfit){
             male = outfit;
             debugMode && console.log({"male":male});
-        }),
+            return;
+        });
+
+    }).then(function(){
 
     //  female.
 
-        db.collection("female").find().forEach(
+        return db.collection("female").find().forEach(
             function(doc){
                 fjson[doc._id] = doc;
             }, 
@@ -49,11 +52,14 @@
         }).then(function(outfit){
             female = outfit;
             debugMode && console.log({"female":female});
-        }),
+            return;
+        });
+
+    }).then(function(){
 
     //  skeleton.
 
-        db.collection("skeleton")
+        return db.collection("skeleton")
         .findOne({_id:"body"}, function(err){
             if (err) throw err;
         }).then(function(doc){
@@ -65,9 +71,10 @@
         }).then(function(outfit){
             skeleton = outfit.skeleton;
             debugMode && console.log({"skeleton":skeleton});
-        }),
+            return;
+        });
 
-    ]).then(function(){
+    }).then(function(){
 
     //  Startup.
 
