@@ -1,7 +1,7 @@
 //  skinnedMeshLoader.js (v6.3)
 
-    var male, m = {};
-    var female, f = {};
+    var male;
+    var female;
     var skeleton;
 
     localPlayerHandler("/turn/back");
@@ -9,77 +9,80 @@
 //  Disable outfit direction visible on startup.
 //  localPlayer.outfit.direction.visible = false;
 
+(function(){
 
-Promise.all([
+    var mjson = {}, fjson = {};
 
-//  male.
+    Promise.all([
 
-    db.collection("male").find().forEach(
-        function(doc){
-            m[doc._id] = doc;
-        }, 
-        function(err){
+    //  male.
+
+        db.collection("male").find().forEach(
+            function(doc){
+                mjson[doc._id] = doc;
+            }, 
+            function(err){
+                if (err) throw err;
+            }
+        ).catch(function(err){
+            console.error(err);
+        }).then(function(){
+            return localPlayer.outfit.fromJSON(mjson);
+        }).then(function(outfit){
+            male = outfit;
+            debugMode && console.log({"male":male});
+        }),
+
+    //  female.
+
+        db.collection("female").find().forEach(
+            function(doc){
+                fjson[doc._id] = doc;
+            }, 
+            function(err){
+                if (err) throw err;
+            }
+        ).catch(function(err){
+            console.error(err);
+        }).then(function(){
+            return localPlayer.outfit.fromJSON(fjson);
+        }).then(function(outfit){
+            female = outfit;
+            debugMode && console.log({"female":female});
+        }),
+
+    //  skeleton.
+
+        db.collection("skeleton")
+        .findOne({_id:"body"}, function(err){
             if (err) throw err;
-        }
-    ).catch(function(err){
-        console.error(err);
-    }).then(function(){
-        return localPlayer.outfit.fromJSON(m);
-    }).then(function(outfit){
-        male = outfit;
-        debugMode && console.log({"male":male});
-    }),
+        }).then(function(doc){
+            return doc;
+        }).catch(function(err){
+            console.error(err);
+        }).then(function(doc){
+            return localPlayer.outfit.fromJSON({skeleton:doc});
+        }).then(function(outfit){
+            skeleton = outfit.skeleton;
+            debugMode && console.log({"skeleton":skeleton});
+        }),
 
-//  female.
+    ]).then(function(){
 
-    db.collection("female").find().forEach(
-        function(doc){
-            f[doc._id] = doc;
-        }, 
-        function(err){
-            if (err) throw err;
-        }
-    ).catch(function(err){
-        console.error(err);
-    }).then(function(){
-        return localPlayer.outfit.fromJSON(f);
-    }).then(function(outfit){
-        female = outfit;
-        debugMode && console.log({"female":female});
-    }),
+    //  Startup.
 
-//  skeleton.
+    //  localPlayerHandler("/turn/back");
+        localPlayerHandler("/gender/female");
 
-    db.collection("skeleton")
-    .findOne({_id:"body"}, function(err){
-        if (err) throw err;
-    }).then(function(doc){
-        return doc;
+    //  Enable outfit direction visible.
+        localPlayer.outfit.direction.visible = true;
+
+    //  Hide loading bar.
+        if (window.bootbox) window.bootbox.hideAll();
+
     }).catch(function(err){
         console.error(err);
-    }).then(function(doc){
-        return localPlayer.outfit.fromJSON({skeleton:doc});
-    }).then(function(outfit){
-        skeleton = outfit.skeleton;
-        debugMode && console.log({"skeleton":skeleton});
-    }),
+    });
 
-]).then(function(){
+})();
 
-//  Startup.
-
-//  localPlayerHandler("/turn/back");
-    localPlayerHandler("/gender/female");
-
-//  Enable outfit direction visible.
-    localPlayer.outfit.direction.visible = true;
-
-//  Hide loading bar.
-    if (window.bootbox) window.bootbox.hideAll();
-
-}).catch(function(err){
-    console.error(err);
-}).then(function(){
-    delete m;
-    delete f;
-});
