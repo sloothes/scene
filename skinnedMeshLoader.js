@@ -1,6 +1,8 @@
 //  skinnedMeshLoader.js (v6.3)
 
-    var male, female, skeleton;
+    var male = {};
+    var female = {};
+    var skeleton;
 
     localPlayerHandler("/turn/back");
 
