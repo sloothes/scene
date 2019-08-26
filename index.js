@@ -48,16 +48,6 @@
     scene.fog = new THREE.FogExp2(0xb1c8e8, 0.00075);
     camera = new FpsCamera(50, 1, 10000);
 
-    camera.position.set(0, 20, 100);
-
-//  controls = new THREE.EditorControls(camera);
-//  if ( controls && controls instanceof THREE.EditorControls ) {
-//      camera.lookAt(controls.center); // important!
-//  }
-
-    ambientLight = new THREE.AmbientLight(0x666666);
-    scene.add(ambientLight);
-
 //  Background.
 
     sceneBackground([
@@ -68,6 +58,16 @@
         "https://i.imgur.com/x9q8z0K.jpg", // "posz.jpg", 
         "https://i.imgur.com/HYcK7Ii.jpg", // "negz.jpg"
     ]);
+
+    camera.position.set(0, 20, 100);
+
+//  controls = new THREE.EditorControls(camera);
+//  if ( controls && controls instanceof THREE.EditorControls ) {
+//      camera.lookAt(controls.center); // important!
+//  }
+
+    ambientLight = new THREE.AmbientLight(0x666666);
+    scene.add(ambientLight);
 
 //  Shadow Light.
 
