@@ -58,6 +58,17 @@
     ambientLight = new THREE.AmbientLight(0x666666);
     scene.add(ambientLight);
 
+//  Background.
+
+    sceneBackground([
+        "https://i.imgur.com/v6bjQLb.jpg", // "posx.jpg",
+        "https://i.imgur.com/lwrlr6P.jpg", // "negx.jpg", 
+        "https://i.imgur.com/kKUKBJg.jpg", // "posy.jpg", 
+        "https://i.imgur.com/N0oZlJR.jpg", // "negy.jpg", 
+        "https://i.imgur.com/x9q8z0K.jpg", // "posz.jpg", 
+        "https://i.imgur.com/HYcK7Ii.jpg", // "negz.jpg"
+    ]);
+
 //  Shadow Light.
 
     sunLight = new THREE.DirectionalLight( 0xdfebff, 0.75 );
@@ -129,17 +140,6 @@
     groundHelper.visible = false;
     axisCustomHelper.visible = false;
     axisOriginHelper.visible = false;
-
-//  Background.
-
-    sceneBackground([
-        "https://i.imgur.com/v6bjQLb.jpg", // "posx.jpg",
-        "https://i.imgur.com/lwrlr6P.jpg", // "negx.jpg", 
-        "https://i.imgur.com/kKUKBJg.jpg", // "posy.jpg", 
-        "https://i.imgur.com/N0oZlJR.jpg", // "negy.jpg", 
-        "https://i.imgur.com/x9q8z0K.jpg", // "posz.jpg", 
-        "https://i.imgur.com/HYcK7Ii.jpg", // "negz.jpg"
-    ]);
 
 })();
 
