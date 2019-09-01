@@ -1,4 +1,4 @@
-//  skinnedMeshLoader.js (v6.3)
+//  skinnedMeshLoader.js (v6.3.1)
 
     var male, female, skeleton;
 
@@ -9,6 +9,25 @@
 (function(){
 
     Promise.resolve().then(function(){
+
+    //  skeleton.
+
+        return db.collection("skeleton")
+        .findOne({_id:"body"}, function(err){
+            if (err) throw err;
+        }).then(function(doc){
+            return doc;
+        }).catch(function(err){
+            console.error(err);
+        }).then(function(doc){
+            return localPlayer.outfit.fromJSON({"skeleton":doc});
+        }).then(function(outfit){
+            skeleton = outfit.skeleton;
+            debugMode && console.log({"skeleton":skeleton});
+            return;
+        });
+
+    }).then(function(){
 
     //  male.
 
@@ -49,25 +68,6 @@
         }).then(function(outfit){
             female = outfit;
             debugMode && console.log({"female":female});
-            return;
-        });
-
-    }).then(function(){
-
-    //  skeleton.
-
-        return db.collection("skeleton")
-        .findOne({_id:"body"}, function(err){
-            if (err) throw err;
-        }).then(function(doc){
-            return doc;
-        }).catch(function(err){
-            console.error(err);
-        }).then(function(doc){
-            return localPlayer.outfit.fromJSON({"skeleton":doc});
-        }).then(function(outfit){
-            skeleton = outfit.skeleton;
-            debugMode && console.log({"skeleton":skeleton});
             return;
         });
 
