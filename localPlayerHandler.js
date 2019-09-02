@@ -140,9 +140,11 @@
 
             //  GENDER.
 
+                case "/gender":
                 case "/gender/":
                 case "/gender/NaN":
                 case "/gender/null":
+                case "/gender/none":
                 case "/gender/false":
                 case "/gender/undefined":
 
@@ -150,6 +152,7 @@
                 case "/gender/trans":
                 case "/gender/female":
                 case "/gender/shemale":
+                case "/gender/skeleton":
 
                     (function(){
 
