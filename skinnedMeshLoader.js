@@ -76,7 +76,7 @@
     //  Startup.
 
     //  localPlayerHandler("/turn/back");
-        localPlayerHandler("/gender/female");
+        localPlayerHandler("/gender/null");
 
     //  Enable outfit direction visible.
         localPlayer.outfit.direction.visible = true;
