@@ -2,7 +2,7 @@
 
 //  MW WORLD.
 
-    var world = new MW.World();
+    world = new MW.World();
 
 //  OCTREE.
 
@@ -10,14 +10,16 @@
 //  container of rigid objects such as terrain ect.
 
     var partition = 1;
+
     var min = new THREE.Vector3( -1000, -1000, -1000 );
     var max = new THREE.Vector3(  1000,  1000,  1000 );
-    var octree = new MW.Octree( min, max, partition );
+
+    octree = new MW.Octree( min, max, partition );
     world.add( octree );
 
 //  GROUND.
 
-    var ground = new THREE.Mesh(
+    ground = new THREE.Mesh(
         new THREE.PlaneGeometry( 2500, 2500, 1, 1 ),
         new THREE.MeshPhongMaterial({ 
             color:0x829ec4,

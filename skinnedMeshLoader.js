@@ -1,6 +1,8 @@
 //  skinnedMeshLoader.js (v6.3.1)
 
-    var male, female, skeleton;
+    male = null;
+    female = null;
+    skeleton = null;
 
     localPlayerHandler("/turn/back");
 //  Disable outfit direction visible on startup.
